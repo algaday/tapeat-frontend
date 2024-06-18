@@ -5,13 +5,11 @@ import styled from "styled-components"
 
 export const StyledStack = styled(Stack)({
 	width: "100%",
-	height: "60vh",
 })
 
 export const Wrapper = styled(Box)({
 	width: "100%",
-	height: "60vh",
-	position: "relative",
+	height: "100%",
 })
 
 export const StyledIconButton = styled(IconButton)({

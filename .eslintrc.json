@@ -127,6 +127,17 @@
 							[
 								"shared",
 								{
+									"segment": "providers"
+								}
+							]
+						],
+						"allow": "index.ts"
+					},
+					{
+						"target": [
+							[
+								"shared",
+								{
 									"segment": "api"
 								}
 							]

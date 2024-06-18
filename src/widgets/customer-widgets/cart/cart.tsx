@@ -2,6 +2,7 @@
 
 import { generateUniqueKey } from "@entities/cart"
 import { MenuItemCartPreview } from "@entities/menu-item/cart-preview"
+import { ChangeDeliveryOptions } from "@features/customer/change-delivery-options"
 import { ManageMenuQuantity } from "@features/manage-menu-quantity/"
 import { useAppSelector } from "@shared/lib/store"
 import { EmptyCart } from "@shared/ui/empty-cart/empty-cart"
@@ -15,6 +16,7 @@ export function CartWidget() {
 
 	return (
 		<>
+			<ChangeDeliveryOptions />
 			{menuItems.map((menuItem) => {
 				return (
 					<MenuItemCartPreview

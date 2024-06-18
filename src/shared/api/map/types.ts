@@ -56,7 +56,7 @@ type FeatureMember = {
 	}
 }
 
-type Suggestion = {
+export type Suggestion = {
 	uri: string
 	tags: string[]
 

@@ -16,7 +16,7 @@ type Props = {
 	onClick: (addressTagAndUri: AddressTagAndUri) => void
 }
 
-export function SuggestionResultsContainer(props: Props) {
+export function SuggestionsContainer(props: Props) {
 	return (
 		<StyledList dense>
 			{props.suggestions?.map((suggestion) => (

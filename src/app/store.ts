@@ -16,9 +16,8 @@ import { menuSlice } from "@entities/menu-item/menu-item-description"
 import { menuItemsSlice } from "@entities/menu-item/menu-items"
 import { modificationGroupsSlice } from "@entities/modification-group"
 import { restaurantBranchSlice } from "@entities/restaurant-branch"
-import { userReducer } from "@entities/user"
+import { addAddressListener, userReducer } from "@entities/user"
 import { baseApi, rtkQueryErrorLogger } from "@shared/api"
-import { mapApi } from "@shared/api/"
 
 const createNoopStorage = () => {
 	return {
@@ -54,7 +53,6 @@ const reducers = combineReducers({
 	menuItem: menuSlice.reducer,
 	menuItems: menuItemsSlice.reducer,
 	[baseApi.reducerPath]: baseApi.reducer,
-	[mapApi.reducerPath]: mapApi.reducer,
 })
 
 export const store = configureStore({
@@ -64,5 +62,9 @@ export const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
-		}).concat(baseApi.middleware, mapApi.middleware, rtkQueryErrorLogger),
+		}).concat(
+			baseApi.middleware,
+			rtkQueryErrorLogger,
+			addAddressListener.middleware,
+		),
 })

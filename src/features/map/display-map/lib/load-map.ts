@@ -7,3 +7,5 @@ export async function loadYandexMapModules() {
 
 	return reactify.module(ymaps3)
 }
+
+export type ModuleType = Awaited<ReturnType<typeof loadYandexMapModules>>

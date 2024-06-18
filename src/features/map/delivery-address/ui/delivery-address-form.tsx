@@ -2,93 +2,114 @@
 
 import { ChangeEvent, useEffect, useState } from "react"
 
-import { Button, Stack, TextField, Typography } from "@mui/material"
+import { Button, Stack, TextField } from "@mui/material"
 
-import { addAddress, fetchLocation } from "@entities/user"
-import { useSuggestAddressQuery } from "@shared/api"
-import { useDebounce } from "@shared/hooks"
-import { useAppDispatch, useAppSelector } from "@shared/lib/store"
-import { CustomToggleButtonGroup } from "@shared/ui/toggle-button-group/toggle-button-group"
+import { fetchSuggestions, Suggestion } from "@shared/api"
+import { useCoordinatesControl, useDebounce } from "@shared/hooks"
 
 import { AddressTagAndUri } from "../types"
 import { Wrapper } from "./delivery-address-form.styles"
-import { SuggestionResultsContainer } from "./suggestion-results-container"
+import { SuggestionsContainer } from "./suggestion-container"
 
 export function DeliveryAddressForm() {
-	const userAddress = useAppSelector((state) => state.user.address)
-
-	const dispatch = useAppDispatch()
-
-	const [address, setAddress] = useState("")
-
-	const [isSuggestionOpen, setIsSuggestionOpen] = useState(false)
-
-	const debouncedAddress = useDebounce(address, 1500)
-
 	const {
-		data: suggestions,
-		isSuccess,
-		isError,
-	} = useSuggestAddressQuery(debouncedAddress, {
-		skip: !debouncedAddress,
-	})
+		locationContent,
+		findCoordinatesByUri,
+		setApartmentAttributes,
+		handleSubmit,
+	} = useCoordinatesControl()
+
+	const [address, setAddress] = useState(locationContent.address)
+
+	const [inputText, setInputText] = useState("")
+
+	const [suggestion, setSuggestion] = useState<Suggestion[] | null>()
+
+	const [showSuggestion, setShowSuggestion] = useState(false)
+
+	const debouncedAddress = useDebounce(inputText, 1000)
 
 	useEffect(() => {
-		setAddress(userAddress)
-	}, [userAddress])
+		setAddress(locationContent.address)
+		setShowSuggestion(false)
+	}, [locationContent])
 
-	function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
+	useEffect(() => {
+		if (!debouncedAddress) {
+			return
+		}
+
+		const fetchSuggestion = async () => {
+			const data = await fetchSuggestions(debouncedAddress)
+			setSuggestion(data)
+		}
+
+		fetchSuggestion()
+	}, [debouncedAddress])
+
+	const handleSearchChange = async (e: ChangeEvent<HTMLInputElement>) => {
+		setInputText(e.target.value)
 		setAddress(e.target.value)
-
-		setIsSuggestionOpen(true)
+		setShowSuggestion(true)
 	}
 
-	function handleSuggestionClick({ address, tag, uri }: AddressTagAndUri) {
+	const handleSuggestionClick = ({ address, tag, uri }: AddressTagAndUri) => {
 		if (tag !== "house") {
 			return
 		}
 
-		dispatch(addAddress(address))
-
-		dispatch(fetchLocation(uri))
-
-		setIsSuggestionOpen(false)
+		findCoordinatesByUri(uri, address)
 	}
 
-	if (isError) {
-		return <Typography>There was an error</Typography>
+	const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setApartmentAttributes(e.target.name, e.target.value)
 	}
 
-	if (isSuccess) {
-		return (
-			<Wrapper>
-				<CustomToggleButtonGroup />
+	return (
+		<Wrapper>
+			<TextField
+				value={address}
+				label="Адрес доставки"
+				fullWidth
+				size="small"
+				multiline
+				onChange={handleSearchChange}
+			/>
 
+			{showSuggestion && (
+				<SuggestionsContainer
+					suggestions={suggestion}
+					onClick={handleSuggestionClick}
+				/>
+			)}
+
+			<Stack direction="row" gap={2} marginY={2}>
 				<TextField
-					value={address}
-					label="Адрес доставки"
+					label="Квартира"
 					fullWidth
 					size="small"
-					onChange={handleSearchChange}
+					name="flat"
+					onChange={handleAddressChange}
 				/>
+				<TextField
+					label="Подъезд"
+					fullWidth
+					size="small"
+					name="entrance"
+					onChange={handleAddressChange}
+				/>
+				<TextField
+					label="Этаж"
+					fullWidth
+					size="small"
+					name="floor"
+					onChange={handleAddressChange}
+				/>
+			</Stack>
 
-				{isSuggestionOpen && (
-					<SuggestionResultsContainer
-						suggestions={suggestions?.results}
-						onClick={handleSuggestionClick}
-					/>
-				)}
-
-				<Stack direction="row" gap={2} marginY={2}>
-					<TextField label="Квартира" fullWidth size="small" />
-					<TextField label="Подъезд" fullWidth size="small" />
-					<TextField label="Этаж" fullWidth size="small" />
-				</Stack>
-
-				<Button variant="contained" fullWidth>
-					Готово
-				</Button>
-			</Wrapper>
-		)
-	}
+			<Button variant="contained" fullWidth onClick={handleSubmit}>
+				Готово
+			</Button>
+		</Wrapper>
+	)
 }

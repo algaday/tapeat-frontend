@@ -1,5 +1,12 @@
+"use client"
+
+import { MapProvider } from "@shared/providers"
 import { LocationMap } from "@widgets/customer-widgets/location-map/location-map"
 
-export default async function MapPage() {
-	return <LocationMap />
+export default function MapPage() {
+	return (
+		<MapProvider>
+			<LocationMap />
+		</MapProvider>
+	)
 }

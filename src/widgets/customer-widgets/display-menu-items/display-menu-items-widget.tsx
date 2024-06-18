@@ -18,7 +18,7 @@ export function DisplayMenuItemsWidget() {
 	}
 
 	return (
-		<Grid container spacing={2} paddingX={2} marginY={2}>
+		<Grid container spacing={2} marginY={2}>
 			{menuItems?.map((menuItem) => {
 				return (
 					<Grid item xs={6} key={menuItem.id}>

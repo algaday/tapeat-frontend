@@ -13,8 +13,12 @@ export { useCreateImageMutation } from "./image/image-api"
 
 export { rtkQueryErrorLogger } from "./error-logger.middleware"
 
-export {
-	useFindAddressQuery,
-	mapApi,
-	useSuggestAddressQuery,
-} from "./map/map-api"
+export { fetchAddressByUri } from "./map/fetch-address-by-uri"
+
+export { fetchAddressGeocode } from "./map/fetch-address-geocode"
+
+export { fetchSuggestions } from "./map/fetch-suggestions"
+
+export type { Suggestion } from "./map/types"
+
+export { addAddressAction } from "./add-address-action"

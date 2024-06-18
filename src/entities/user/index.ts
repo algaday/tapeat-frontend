@@ -4,10 +4,10 @@ export {
 	useRegisterOwnerMutation,
 } from "./api/user-api"
 
-export { clearUser, addAddress } from "./model/slice"
+export { clearUser, addAddress, updateDeliveryOption } from "./model/slice"
 
 export { userReducer } from "./model/slice"
 
-export { fetchAddress } from "./model/fetch-address-thunk"
+export { addAddressListener } from "./model/add-address-listener"
 
-export { fetchLocation } from "./model/fetch-location-thunk"
+export type { DeliveryOption } from "./model/types"
