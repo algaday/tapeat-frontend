@@ -26,7 +26,7 @@ export function CartHeader() {
 			direction={"row"}
 			justifyContent="space-between"
 			alignItems="center"
-			paddingX={1}
+			paddingX={2}
 			paddingY={1}
 		>
 			<IconButton onClick={handleBackArrowClick}>

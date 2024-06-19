@@ -1,12 +1,12 @@
 import { Stack } from "@mui/material"
 
-import { ChangeDeliveryOptions } from "@features/customer/change-delivery-options"
+import { DeliveryOptions } from "@features/customer/delivery-options"
 import { DisplayAddressButton } from "@features/customer/display-address-button"
 
 export function DeliveryAddress() {
 	return (
 		<Stack spacing={1} marginY={1}>
-			<ChangeDeliveryOptions />
+			<DeliveryOptions />
 			<DisplayAddressButton />
 		</Stack>
 	)

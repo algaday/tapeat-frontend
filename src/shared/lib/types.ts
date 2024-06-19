@@ -1,10 +1,5 @@
 import { z } from "zod"
 
-export type CartState = {
-	cart: MenuItem[] | []
-	menuItemsTotal: number
-}
-
 const modifications = z.object({
 	id: z.string(),
 	price: z.number(),
@@ -33,7 +28,3 @@ const menu = z.object({
 export type MenuItem = z.infer<typeof menu>
 
 export type Modification = z.infer<typeof modifications>
-
-export type MenuId = {
-	id: string
-}

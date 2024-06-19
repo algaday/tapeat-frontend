@@ -24,7 +24,7 @@ export function LocationMap() {
 
 	const dispatch = useAppDispatch()
 
-	const { updateDeliveryType, handleSubmit } = useCoordinatesControl()
+	const { updateDeliveryType, submitPickupAddress } = useCoordinatesControl()
 
 	const handleChange = (event: React.SyntheticEvent, tab: DeliveryVariants) => {
 		dispatch(updateDeliveryOption(tab))
@@ -51,7 +51,7 @@ export function LocationMap() {
 				<StyledTabPanel value="pick-up">
 					<SelectPickup />
 					<StyledPickupBox>
-						<Button variant="contained" fullWidth onClick={handleSubmit}>
+						<Button variant="contained" fullWidth onClick={submitPickupAddress}>
 							Готово
 						</Button>
 					</StyledPickupBox>
@@ -60,7 +60,7 @@ export function LocationMap() {
 				<StyledTabPanel value="restaurant">
 					<SelectPickup />
 					<StyledPickupBox>
-						<Button variant="contained" fullWidth onClick={handleSubmit}>
+						<Button variant="contained" fullWidth onClick={submitPickupAddress}>
 							Готово
 						</Button>
 					</StyledPickupBox>

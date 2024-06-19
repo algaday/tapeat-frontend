@@ -6,6 +6,7 @@ import { Stack, Typography } from "@mui/material"
 
 import { decreaseMenuQuantity, increaseMenuQuantity } from "@entities/cart"
 import { useOrderCounter } from "@shared/hooks"
+import { calculateMenuTotal } from "@shared/lib/calculate-menu-total"
 import { useAppDispatch } from "@shared/lib/store"
 import { CustomIconButton } from "@shared/ui/icon-button/custom-icon-button"
 
@@ -44,7 +45,7 @@ export function ManageMenuQuantity(props: Props) {
 					<AddBoxRoundedIcon />
 				</CustomIconButton>
 			</Stack>
-			<Typography>{counter * menuItem.price} тенге</Typography>
+			<Typography>{counter * calculateMenuTotal(menuItem)} тенге</Typography>
 		</Stack>
 	)
 }

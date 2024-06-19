@@ -45,7 +45,9 @@ export const testData = [
 export function SelectPickup() {
 	const { locationContent } = useCoordinatesControl()
 
-	const [value, setValue] = useState<LngLat | null>(locationContent.coordinates)
+	const [value, setValue] = useState<LngLat | null>(
+		locationContent.pickupAddress.coordinates,
+	)
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const modifiedValue = event.target.value
@@ -78,11 +80,12 @@ export function SelectPickup() {
 }
 
 function Check(props: { text: string; time: string; value: number[] }) {
-	const { updateCoordinates, updateAddress } = useCoordinatesControl()
+	const { updatePickupAddress, updatePickupCoordinates } =
+		useCoordinatesControl()
 
 	const handleRadioChange = () => {
-		updateCoordinates(props.value as LngLat)
-		updateAddress(props.text)
+		updatePickupCoordinates(props.value as LngLat)
+		updatePickupAddress(props.text)
 	}
 
 	return (

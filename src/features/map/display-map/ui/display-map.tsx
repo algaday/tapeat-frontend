@@ -58,7 +58,13 @@ export function DisplayLocationMap() {
 	return (
 		<Wrapper>
 			<YMap
-				location={{ center: locationContent.coordinates, zoom: 16 }}
+				location={{
+					center:
+						tabType === "delivery"
+							? locationContent.deliveryAddress.coordinates
+							: locationContent.pickupAddress.coordinates,
+					zoom: 16,
+				}}
 				mode="vector"
 				behaviors={["drag"]}
 			>

@@ -24,21 +24,46 @@ export function useCoordinatesControl() {
 		throw new Error("useCoordinatesControl must be used within a MapProvider")
 	}
 
-	const updateCoordinates = (coordinates: LngLat) => {
-		context.setLocationContent((locationContent) => {
-			return { ...locationContent, coordinates }
+	const updateDeliveryCoordinates = (coordinates: LngLat) => {
+		context.setLocationContent((state) => {
+			state.deliveryAddress.coordinates = coordinates
+			return state
 		})
 	}
 
-	const updateAddress = (address: string) => {
+	const updatePickupCoordinates = (coordinates: LngLat) => {
+		context.setLocationContent((state) => {
+			state.pickupAddress.coordinates = coordinates
+			return state
+		})
+		console.log(context.locationContent)
+	}
+
+	const updateDeliveryAddress = (address: string) => {
+		const modifiedDeliveryAddress = {
+			...context.locationContent.deliveryAddress,
+			address: `Астана, ${address}`,
+		}
+
 		context.setLocationContent((locationContent) => {
-			return { ...locationContent, address: `Астана, ${address}` }
+			return { ...locationContent, deliveryAddress: modifiedDeliveryAddress }
 		})
 	}
 
 	const updateDeliveryType = (type: "delivery" | "pick-up" | "restaurant") => {
 		context.setLocationContent((locationContent) => {
 			return { ...locationContent, type }
+		})
+	}
+
+	const updatePickupAddress = (address: string) => {
+		const modifiedPickupAddress = {
+			...context.locationContent.pickupAddress,
+			address: `Астана, ${address}`,
+		}
+
+		context.setLocationContent((locationContent) => {
+			return { ...locationContent, pickupAddress: modifiedPickupAddress }
 		})
 	}
 
@@ -49,8 +74,8 @@ export function useCoordinatesControl() {
 			.split(",")
 			.map((item) => Number(item)) as LngLat
 
-		updateCoordinates(modifiedCoordinates)
-		updateAddress(address)
+		updateDeliveryCoordinates(modifiedCoordinates)
+		updateDeliveryAddress(address)
 	}
 
 	const findCoordinatesByUri = async (uri: string, address: string) => {
@@ -61,19 +86,23 @@ export function useCoordinatesControl() {
 				.split(" ")
 				.map((item) => Number(item)) as LngLat
 
-		updateCoordinates(modifiedCoordinates)
-		updateAddress(address)
+		updateDeliveryCoordinates(modifiedCoordinates)
+		updateDeliveryAddress(address)
 	}
 
 	const setApartmentAttributes = (name: string, value: string) => {
+		const modifiedDeliveryAddress = {
+			...context.locationContent.deliveryAddress,
+			[name]: value,
+		}
 		context.setLocationContent((locationContent) => {
-			return { ...locationContent, [name]: value }
+			return { ...locationContent, deliveryAddress: modifiedDeliveryAddress }
 		})
 	}
 
-	const submitAddress = () => {
+	const submitDeliveryAddress = () => {
 		const { address, coordinates, entrance, flat, floor } =
-			context.locationContent
+			context.locationContent.deliveryAddress
 
 		const modifiedCoordinates = coordinates.join(",")
 
@@ -87,22 +116,35 @@ export function useCoordinatesControl() {
 				coordinates: modifiedCoordinates,
 			}),
 		)
+
+		router.back()
 	}
 
-	const handleSubmit = () => {
-		submitAddress()
+	const submitPickupAddress = () => {
+		const { address, coordinates } = context.locationContent.pickupAddress
+
+		const modifiedCoordinates = coordinates.join(",")
+
+		dispatch(
+			addAddressAction({
+				street: address,
+				type: deliveryType,
+				coordinates: modifiedCoordinates,
+			}),
+		)
+
 		router.back()
 	}
 
 	return {
-		updateCoordinates,
+		updatePickupAddress,
 		locationContent: context.locationContent,
 		findAddressByCoordinates,
 		findCoordinatesByUri,
-		updateAddress,
 		setApartmentAttributes,
-		submitAddress,
 		updateDeliveryType,
-		handleSubmit,
+		submitDeliveryAddress,
+		submitPickupAddress,
+		updatePickupCoordinates,
 	}
 }

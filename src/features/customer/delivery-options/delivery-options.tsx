@@ -8,16 +8,16 @@ import { useAppDispatch, useAppSelector } from "@shared/lib/store"
 import {
 	StyledToggleButton,
 	StyledToggleButtonGroup,
-} from "./change-delivery-optioins.styles"
+} from "./delivery-options.styles"
 
-export function ChangeDeliveryOptions() {
+export function DeliveryOptions() {
 	const deliveryType = useAppSelector((state) => state.user.address?.type)
 
 	const dispatch = useAppDispatch()
 
 	const router = useRouter()
 
-	const handleClick = (event: React.SyntheticEvent<HTMLElement>) => {
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		dispatch(updateDeliveryOption(event.target.value))
 
 		router.push("/frito/map")
@@ -28,7 +28,7 @@ export function ChangeDeliveryOptions() {
 			value={deliveryType}
 			exclusive
 			fullWidth
-			onClick={handleClick}
+			onChange={handleClick}
 		>
 			<StyledToggleButton value="delivery">Доставка</StyledToggleButton>
 			<StyledToggleButton value="pick-up">Самовывоз</StyledToggleButton>

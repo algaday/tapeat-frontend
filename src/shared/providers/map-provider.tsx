@@ -1,40 +1,8 @@
-import {
-	createContext,
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useEffect,
-	useState,
-} from "react"
+import { createContext, useEffect, useState } from "react"
 
-import { LngLat } from "@yandex/ymaps3-types"
+import { getInitialState } from "@shared/lib/get-initial-state"
 
-type Props = { children: ReactNode }
-
-type LocationContent = {
-	coordinates: LngLat
-	address: string
-	flat?: string
-	floor?: string
-	entrance?: string
-	type: "delivery" | "pick-up" | "restaurant"
-}
-
-type ContextType = {
-	locationContent: LocationContent
-	setLocationContent: Dispatch<SetStateAction<LocationContent>>
-}
-
-function getInitialState() {
-	const locationContent = localStorage.getItem("locationContent")
-	return locationContent
-		? JSON.parse(locationContent)
-		: {
-				coordinates: [71.430429, 51.128201],
-				address: "Астана, бульвар Нуржол, 14",
-				type: "delivery",
-			}
-}
+import { ContextType, LocationContent, Props } from "./types"
 
 export const MapContext = createContext<ContextType | undefined>(undefined)
 

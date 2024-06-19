@@ -2,11 +2,17 @@ import { toast } from "react-toastify"
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+import {
+	calculateMenuTotal,
+	calculateMenuTotalWithQuantity,
+} from "@shared/lib/calculate-menu-total"
+
 import { generateUniqueKey } from "../lib/generate-unique-key"
 import { CartState, MenuItem } from "./types"
 
 const initialState: CartState = {
 	cart: [],
+	menuItemsTotal: 0,
 }
 
 export const cartSlice = createSlice({
@@ -27,6 +33,11 @@ export const cartSlice = createSlice({
 			} else {
 				state.cart = [...state.cart, menuItem]
 			}
+
+			const menuTotalPrice = calculateMenuTotalWithQuantity(menuItem)
+
+			state.menuItemsTotal += menuTotalPrice
+
 			toast.success("Блюдо добавлена в корзину")
 		},
 
@@ -44,11 +55,15 @@ export const cartSlice = createSlice({
 				state.cart = state.cart.filter(
 					(menu) => generateUniqueKey(menu) !== generateUniqueKey(payload),
 				)
+
+				state.menuItemsTotal -= calculateMenuTotal(menuItem)
 			}
 
 			state.cart = state.cart.map((menu) => {
 				if (generateUniqueKey(menu) === generateUniqueKey(payload)) {
 					menu.quantity--
+
+					state.menuItemsTotal -= calculateMenuTotal(menuItem)
 
 					return menu
 				}
@@ -61,6 +76,8 @@ export const cartSlice = createSlice({
 				if (generateUniqueKey(menu) === generateUniqueKey(payload)) {
 					menu.quantity++
 
+					state.menuItemsTotal += calculateMenuTotal(menu)
+
 					return menu
 				}
 				return menu
@@ -69,6 +86,7 @@ export const cartSlice = createSlice({
 
 		clearCart: (state) => {
 			state.cart = []
+			state.menuItemsTotal = 0
 		},
 	},
 })

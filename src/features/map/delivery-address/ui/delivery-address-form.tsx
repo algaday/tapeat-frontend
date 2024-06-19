@@ -16,10 +16,12 @@ export function DeliveryAddressForm() {
 		locationContent,
 		findCoordinatesByUri,
 		setApartmentAttributes,
-		handleSubmit,
+		submitDeliveryAddress,
 	} = useCoordinatesControl()
 
-	const [address, setAddress] = useState(locationContent.address)
+	const [address, setAddress] = useState(
+		locationContent.deliveryAddress.address,
+	)
 
 	const [inputText, setInputText] = useState("")
 
@@ -30,7 +32,7 @@ export function DeliveryAddressForm() {
 	const debouncedAddress = useDebounce(inputText, 1000)
 
 	useEffect(() => {
-		setAddress(locationContent.address)
+		setAddress(locationContent.deliveryAddress.address)
 		setShowSuggestion(false)
 	}, [locationContent])
 
@@ -107,7 +109,7 @@ export function DeliveryAddressForm() {
 				/>
 			</Stack>
 
-			<Button variant="contained" fullWidth onClick={handleSubmit}>
+			<Button variant="contained" fullWidth onClick={submitDeliveryAddress}>
 				Готово
 			</Button>
 		</Wrapper>
