@@ -30,7 +30,7 @@ export function OrderWidget() {
 						<KeyboardBackspaceOutlinedIcon />
 					</IconButton>
 
-					<Typography margin={0} variant="h6">
+					<Typography margin={0} variant="h5">
 						Доставка
 					</Typography>
 					<Box></Box>
