@@ -5,6 +5,7 @@ export {
 	MODIFICATION_GROUP_TAG,
 	RESTAURANT_BRANCH_TAG,
 	USER_TAG,
+	CATEGORY_TAG,
 } from "./tags"
 
 export type { Image } from "./image/types"

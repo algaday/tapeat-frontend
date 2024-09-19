@@ -40,7 +40,7 @@ export function ModifiedImage(props: Props) {
 	return (
 		<Wrapper>
 			<Image
-				src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${imageUrl}`}
+				src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${imageUrl}`}
 				alt="img"
 				width={150}
 				height={150}

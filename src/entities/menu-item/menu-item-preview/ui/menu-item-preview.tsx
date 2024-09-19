@@ -32,7 +32,7 @@ export function MenuItemPreview(props: Props) {
 		<StyledCard onClick={handleOnCardClick}>
 			<CardMedia
 				component="img"
-				image={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${props.image}`}
+				image={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${props.image}`}
 				alt={props.name}
 			/>
 
