@@ -42,13 +42,16 @@ export function DisplayLocationMap() {
 		)
 	}
 
+	const { YMapZoomControl, module } = modules
+
 	const {
 		YMap,
 		YMapDefaultSchemeLayer,
 		YMapDefaultFeaturesLayer,
 		YMapListener,
 		YMapMarker,
-	} = modules
+		YMapControls,
+	} = module
 
 	const handleActionEnd = (data) => {
 		const centerCoordinate = data.location.center.join(",")
@@ -69,6 +72,12 @@ export function DisplayLocationMap() {
 				behaviors={["drag"]}
 			>
 				<YMapDefaultSchemeLayer />
+
+				<YMapControls position="right">
+					{/* Add the first zoom control to the map */}
+					<YMapZoomControl />
+				</YMapControls>
+
 				<YMapDefaultFeaturesLayer />
 				{tabType === "delivery" && (
 					<YMapListener onActionEnd={handleActionEnd} />

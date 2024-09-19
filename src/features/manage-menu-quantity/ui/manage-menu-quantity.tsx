@@ -45,7 +45,7 @@ export function ManageMenuQuantity(props: Props) {
 					<AddBoxRoundedIcon />
 				</CustomIconButton>
 			</Stack>
-			<Typography>{counter * calculateMenuTotal(menuItem)} тенге</Typography>
+			<Typography>{counter * calculateMenuTotal(menuItem)} ₸</Typography>
 		</Stack>
 	)
 }

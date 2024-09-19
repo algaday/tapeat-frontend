@@ -78,7 +78,7 @@ export function DeliveryAddressForm() {
 				onChange={handleSearchChange}
 			/>
 
-			{showSuggestion && (
+			{showSuggestion && suggestion && (
 				<SuggestionsContainer
 					suggestions={suggestion}
 					onClick={handleSuggestionClick}
