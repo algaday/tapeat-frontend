@@ -27,7 +27,7 @@ import {
 } from "../model/create-menu-item-schema"
 import { Wrapper } from "./menu-item-form.styles"
 
-export function MenuItemForm() {
+export default function MenuItemForm() {
 	const [createMenuItem] = useCreateMenuItemMutation()
 
 	const { data: categories, isLoading } = useGetCategoriesQuery()

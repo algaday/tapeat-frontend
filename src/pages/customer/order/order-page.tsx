@@ -1,5 +1,5 @@
 import { OrderWidget } from "@widgets/customer-widgets"
 
-export function OrderPage() {
+export default function OrderPage() {
 	return <OrderWidget />
 }

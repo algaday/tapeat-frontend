@@ -1,5 +1,5 @@
 import { CreateModificationGroupForm } from "@features/menu/create-modification-group"
 
-export function CreateModificationGroupPage() {
+export default function CreateModificationGroupPage() {
 	return <CreateModificationGroupForm />
 }

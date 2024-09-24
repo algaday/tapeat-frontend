@@ -21,7 +21,7 @@ export function CreateCategory() {
 	} = useForm<InputType>()
 
 	const onSubmit: SubmitHandler<InputType> = (data) => {
-		createCategory({ name: data.category })
+		createCategory({ category: data.category })
 		reset()
 	}
 

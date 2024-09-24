@@ -10,8 +10,6 @@ import {
 	updateMenuItem,
 	useGetMenuItemQuery,
 } from "@entities/menu-item/menu-item-description"
-import { AddMenuToCart } from "@features/customer/add-to-cart-menu"
-import { DisplayModification } from "@features/display-modifications"
 import { useAppDispatch } from "@shared/lib/store"
 
 export function MenuItemDetailsWidget() {
@@ -40,26 +38,9 @@ export function MenuItemDetailsWidget() {
 	}
 
 	if (isSuccess) {
-		const {
-			nameOfDish,
-			price,
-			image: { mediumThumbnailPath },
-			description,
-			modificationGroups,
-		} = data
-
 		return (
 			<>
-				<CustomerMenuItemOverview
-					nameOfDish={nameOfDish}
-					price={price}
-					image={mediumThumbnailPath}
-					description={description}
-					actionSlot={<AddMenuToCart />}
-					modificationsSlot={
-						<DisplayModification modificationGroups={modificationGroups} />
-					}
-				/>
+				<CustomerMenuItemOverview {...data} />
 			</>
 		)
 	}

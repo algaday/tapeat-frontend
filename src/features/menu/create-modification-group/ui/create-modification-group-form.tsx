@@ -44,8 +44,9 @@ export function CreateModificationGroupForm() {
 
 	const methods = useForm<CreateModificationGroupSchema>({
 		defaultValues: {
-			modifications: [{ name: "", price: "", isMandatory: false }],
+			modifications: [{ name: "", price: "" }],
 			isMultipleChoice: false,
+			isMandatory: false,
 		},
 		resolver: zodResolver(createModificationGroupSchema),
 	})
@@ -63,7 +64,7 @@ export function CreateModificationGroupForm() {
 	}
 
 	const addModification = () => {
-		append({ name: "", price: "", isMandatory: false })
+		append({ name: "", price: "" })
 	}
 
 	const removeModification = (index: number) => {
@@ -82,6 +83,11 @@ export function CreateModificationGroupForm() {
 					label="Название группы модификации"
 					margin="normal"
 				/>
+				<RHFSwitch
+					name={`isMandatory`}
+					text="Обязательное группа модификаций"
+				/>
+
 				<Box marginY={2}>
 					<Typography variant="h6" component="h2">
 						Модификация
@@ -102,10 +108,6 @@ export function CreateModificationGroupForm() {
 									<DeleteOutlineOutlinedIcon color="error" />
 								</IconButton>
 							</Stack>
-							<RHFSwitch
-								name={`modifications.${index}.isMandatory`}
-								text="Обязательное модификация"
-							/>
 						</Stack>
 					))}
 					<Button onClick={addModification} startIcon={<AddOutlinedIcon />}>

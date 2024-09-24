@@ -44,6 +44,7 @@ export function CartWidget() {
 							id={menuItem.id}
 							nameOfDish={menuItem.nameOfDish}
 							image={menuItem.image.mediumThumbnailPath}
+							modifications={menuItem.modifications}
 							description={menuItem.description}
 							actionSlot={<ManageMenuQuantity menuItem={menuItem} />}
 						/>

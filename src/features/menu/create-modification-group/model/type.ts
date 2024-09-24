@@ -14,12 +14,12 @@ export const createModificationGroupSchema = z.object({
 		.string()
 		.min(1, { message: "Заполните название группы" }),
 	isMultipleChoice: z.coerce.boolean(),
+	isMandatory: z.boolean().default(false),
 
 	modifications: z.array(
 		z.object({
 			name: z.string().min(1, { message: "Заполните название" }),
 			price: z.string().min(1, { message: "Укажите цену" }),
-			isMandatory: z.boolean().default(false),
 		}),
 	),
 })

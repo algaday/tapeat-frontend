@@ -10,7 +10,8 @@ import {
 import { Props } from "./types"
 
 export function MenuItemCartPreview(props: Props) {
-	const { nameOfDish, image, description, actionSlot } = props
+	const { nameOfDish, image, actionSlot, modifications } = props
+
 	return (
 		<StyledCard>
 			<Stack direction="row">
@@ -25,13 +26,22 @@ export function MenuItemCartPreview(props: Props) {
 				<StyledCardContent>
 					<Box>
 						<Typography variant="h6">{nameOfDish} </Typography>
-						<Typography
-							variant="subtitle1"
-							color="text.secondary"
-							lineHeight={1}
-						>
-							{description}
-						</Typography>
+						{modifications && (
+							<Stack direction="row" gap={"2px"}>
+								{modifications.map((modification, index) => {
+									return (
+										<Typography
+											key={modification.id}
+											variant="subtitle2"
+											color="text.secondary"
+											lineHeight={1}
+										>
+											{`${modification.name}${modifications.length - 1 === index ? "" : `,`}`}
+										</Typography>
+									)
+								})}
+							</Stack>
+						)}
 					</Box>
 					{actionSlot}
 				</StyledCardContent>

@@ -3,11 +3,11 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { TabContext } from "@mui/lab"
 import { Box, Button, Stack } from "@mui/material"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 
 import { updateDeliveryOption } from "@entities/user"
 import { DeliveryAddressForm } from "@features/map/delivery-address"
-import { DisplayLocationMap } from "@features/map/display-map"
 import { SelectPickup } from "@features/map/select-pickup"
 import { useCoordinatesControl } from "@shared/hooks"
 import { useAppDispatch, useAppSelector } from "@shared/lib/store"
@@ -21,9 +21,13 @@ import {
 	StyledToggleButtonGroup,
 } from "./location-map.styles"
 
+const DisplayLocationMap = dynamic(() => import("@features/map/display-map"), {
+	ssr: false,
+})
+
 type DeliveryVariants = "delivery" | "pick-up" | "restaurant"
 
-export function LocationMap() {
+export default function LocationMap() {
 	const tabType = useAppSelector((state) => state.user.deliveryOption)
 
 	const router = useRouter()

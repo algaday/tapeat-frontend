@@ -5,7 +5,7 @@ export type CreateCategoryResponse = {
 }
 
 export type CreateCategoryDto = {
-	name: string
+	category: string
 }
 
 export type DeleteCategoryDto = {
@@ -16,7 +16,7 @@ export type CategoryMenuItemsResponse = Category[]
 
 export type Category = {
 	id: string
-	name: string
+	category: string
 	restaurantId: string
 	menuItems: MenuItem[]
 }

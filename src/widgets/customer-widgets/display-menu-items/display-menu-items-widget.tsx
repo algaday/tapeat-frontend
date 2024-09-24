@@ -68,7 +68,7 @@ export function DisplayMenuItemsWidget() {
 					)
 				})}
 			</StyledStack>
-			<Box ref={ref}>
+			<Box ref={ref} sx={{ backgroundColor: "#F1F1F1", padding: "10px 0" }}>
 				{categoryMenuItems.map((category, index) => (
 					<InView
 						onChange={setInView}

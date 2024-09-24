@@ -40,7 +40,7 @@ export function DisplayAddressDeliveryFee() {
 				</Typography>
 
 				<Typography variant="body2" color="GrayText" marginTop={1}>
-					{deliveryFeeText}
+					{deliveryFeeText || ""}
 				</Typography>
 			</Box>
 			<Typography variant="body1" fontWeight="600" noWrap overflow="unset">

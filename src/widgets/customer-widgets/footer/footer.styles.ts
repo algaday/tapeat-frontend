@@ -2,7 +2,7 @@ import { Container, Typography } from "@mui/material"
 import styled from "styled-components"
 
 export const StyledContainer = styled(Container)`
-	margin-top: 100px;
+	margin-top: 0;
 	height: 500px;
 	background-color: #000;
 `

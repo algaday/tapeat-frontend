@@ -12,7 +12,7 @@ export function AddToCart() {
 
 	return (
 		<StyledIconButton disableRipple onClick={addMenuItemToCart}>
-			<AddBoxIcon color="info" sx={{ fontSize: "42px", padding: 0 }} />
+			<AddBoxIcon color="info" sx={{ fontSize: "32px", padding: 0 }} />
 		</StyledIconButton>
 	)
 }

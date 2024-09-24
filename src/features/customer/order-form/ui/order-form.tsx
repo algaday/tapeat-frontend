@@ -21,7 +21,9 @@ export function OrderForm() {
 		resolver: zodResolver(orderFormSchema),
 	})
 
-	const onSubmit: SubmitHandler<OrderFormSchema> = async () => {}
+	const onSubmit: SubmitHandler<OrderFormSchema> = async (data) => {
+		console.log(data)
+	}
 
 	return (
 		<FormProvider {...methods}>

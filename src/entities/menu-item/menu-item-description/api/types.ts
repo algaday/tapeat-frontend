@@ -4,6 +4,7 @@ export const modificationGroupSchema = z.object({
 	id: z.string(),
 	isMultipleChoice: z.boolean(),
 	name: z.string(),
+	isMandatory: z.boolean(),
 	modifications: z.array(
 		z.object({
 			id: z.string(),
@@ -38,7 +39,7 @@ export const menuItemSchema = z.object({
 
 export type MenuItemSchema = z.infer<typeof menuItemSchema>
 
-export type ModificationGroupSchema = z.infer<typeof modificationGroupSchema>
+export type dsaModificationGroupSchema = z.infer<typeof modificationGroupSchema>
 
 export type MenuItem = Omit<MenuItemSchema, "modificationGroups"> & {
 	modifications: Modification[]

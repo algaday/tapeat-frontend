@@ -1,5 +1,5 @@
 import { CategoryWidget } from "@widgets/customer-widgets"
 
-export function Category() {
+export default function Category() {
 	return <CategoryWidget />
 }

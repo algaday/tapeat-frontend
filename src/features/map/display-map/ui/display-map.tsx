@@ -18,7 +18,7 @@ import {
 	Wrapper,
 } from "./display-map.styles"
 
-export function DisplayLocationMap() {
+export default function DisplayLocationMap() {
 	const { locationContent, findAddressByCoordinates } = useCoordinatesControl()
 
 	const tabType = useAppSelector((state) => state.user.deliveryOption)

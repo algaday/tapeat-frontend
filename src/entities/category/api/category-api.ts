@@ -19,12 +19,12 @@ export const categoryApi = baseApi.injectEndpoints({
 		}),
 
 		getCategories: build.query<CreateCategoryResponse[], void>({
-			query: () => `category/all`,
+			query: () => `category/all/1e0fcc56-b919-49a0-9a8b-b3921fd670f3`,
 			providesTags: [CATEGORY_TAG],
 		}),
 
 		getCategoryMenuItems: build.query<CategoryMenuItemsResponse, void>({
-			query: () => `category/menu-items`,
+			query: () => `category/menu-items/1e0fcc56-b919-49a0-9a8b-b3921fd670f3`,
 		}),
 
 		deleteCategory: build.mutation<CreateCategoryResponse, DeleteCategoryDto>({

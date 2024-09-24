@@ -1,1 +1,1 @@
-export { DisplayLocationMap } from "./ui/display-map"
+export { default } from "./ui/display-map"

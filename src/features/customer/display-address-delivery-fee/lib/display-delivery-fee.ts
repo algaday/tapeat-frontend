@@ -11,6 +11,10 @@ export const displayDeliveryFeeText = (
 		return
 	}
 
+	if (fees.length === 1) {
+		return ` от ${fees[0].minOrderAmount} ₸ - бесплатная доставка`
+	}
+
 	fees.forEach((fee, index) => {
 		if (index === 0) {
 			startText = `Тариф на доставку:  до ${fees[index + 1].minOrderAmount} ₸ - ${fee.deliveryFee} ₸ за доставку,`
