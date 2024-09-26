@@ -25,25 +25,22 @@ export function OrderWidget() {
 	}, [])
 
 	return (
-		<Container sx={{ height: "100%" }}>
-			<Stack
-				height="100%"
-				justifyContent="space-between"
-				flexDirection="column"
-			>
+		<Container sx={{ height: "100%", width: "100%" }}>
+			<Stack height="100%" alignItems="center" flexDirection="column">
 				<Stack
 					direction="row"
-					justifyContent="space-between"
 					paddingY={1}
+					width="100%"
 					alignItems="center"
+					justifyContent="space-between"
 				>
 					<IconButton onClick={handleBackArrowClick}>
 						<KeyboardBackspaceOutlinedIcon />
 					</IconButton>
-
 					<Typography margin={0} variant="h5">
 						Доставка
 					</Typography>
+					<div></div>
 				</Stack>
 				<OrderForm />
 			</Stack>

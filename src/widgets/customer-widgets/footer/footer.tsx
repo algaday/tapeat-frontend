@@ -8,7 +8,7 @@ export function Footer() {
 	return (
 		<StyledContainer>
 			<Stack alignItems="center" width="100%">
-				<StyledTypography>FRITO FOOTER</StyledTypography>
+				<StyledTypography>FRITO </StyledTypography>
 			</Stack>
 		</StyledContainer>
 	)

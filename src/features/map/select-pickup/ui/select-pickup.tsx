@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 import {
 	Box,
@@ -8,50 +8,26 @@ import {
 	RadioGroup,
 	Stack,
 	Typography,
-} from "@mui/material"
-import { LngLat } from "@yandex/ymaps3-types"
+} from '@mui/material'
+import { LngLat } from '@yandex/ymaps3-types'
 
-import { useCoordinatesControl } from "@shared/hooks"
+import { useGetBranchesQuery } from '@entities/restaurant-branch'
+import { useCoordinatesControl } from '@shared/hooks'
 
-import { Wrapper } from "./select-pickup.styles"
-
-export const testData = [
-	{
-		id: 1,
-		text: "улица Ханов Керея и Жанибека, 28",
-		time: "10:00 - 22:00",
-		coordinates: [71.428489, 51.113253],
-	},
-	{
-		id: 2,
-		text: "улица Сауран, 8",
-		time: "10:00 - 22:00",
-		coordinates: [71.422174, 51.121921],
-	},
-	{
-		id: 3,
-		text: "улица Сыганак, 16",
-		time: "10:00 - 22:00",
-		coordinates: [71.378183, 51.12949],
-	},
-	{
-		id: 4,
-		text: "улица Чингиза Айтматова, 28А",
-		time: "10:00 - 22:00",
-		coordinates: [71.359103, 51.120383],
-	},
-]
+import { Wrapper } from './select-pickup.styles'
 
 export function SelectPickup() {
 	const { locationContent } = useCoordinatesControl()
-
+	const { data: pickupBranches, isLoading } = useGetBranchesQuery()
 	const [value, setValue] = useState<LngLat | null>(
 		locationContent.pickupAddress.coordinates,
 	)
-
+	if (!pickupBranches) {
+		return <h1>Not found</h1>
+	}
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const modifiedValue = event.target.value
-			.split(",")
+			.split(',')
 			.map((item) => Number(item))
 
 		setValue(modifiedValue as LngLat)
@@ -65,21 +41,33 @@ export function SelectPickup() {
 					value={value}
 					onChange={handleChange}
 				>
-					{testData.map((item) => (
-						<FormControlLabel
-							key={item.id}
-							value={String(item.coordinates)}
-							control={<Check {...item} value={item.coordinates} />}
-							label=""
-						/>
-					))}
+					{pickupBranches.map((branch) => {
+						const { address, latitude, longitude, id } = branch
+						const coordindates = [
+							Number(longitude),
+							Number(latitude),
+						]
+						return (
+							<FormControlLabel
+								key={id}
+								value={`${latitude},${longitude}`}
+								control={
+									<Check
+										text={address}
+										value={coordindates}
+									/>
+								}
+								label=""
+							/>
+						)
+					})}
 				</RadioGroup>
 			</FormControl>
 		</Wrapper>
 	)
 }
 
-function Check(props: { text: string; time: string; value: number[] }) {
+function Check(props: { text: string; value: number[] }) {
 	const { updatePickupAddress, updatePickupCoordinates } =
 		useCoordinatesControl()
 
@@ -101,8 +89,8 @@ function Check(props: { text: string; time: string; value: number[] }) {
 				>
 					{props.text}
 				</Typography>
-				<Typography fontSize={16} color={"rgba(0,0,0,.5)"}>
-					{props.time}
+				<Typography fontSize={16} color={'rgba(0,0,0,.5)'}>
+					10:00 - 22:00
 				</Typography>
 			</Box>
 		</Stack>
