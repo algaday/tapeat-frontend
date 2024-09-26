@@ -2,9 +2,9 @@ import { MenuItem } from "./types"
 
 export function calculateMenuTotalWithQuantity(menuItem: MenuItem) {
 	return (
-		menuItem.price * menuItem.quantity +
+		Number(menuItem.price) * Number(menuItem.quantity) +
 		menuItem.modifications.reduce(
-			(total, menuItem) => (total += menuItem.price),
+			(total, menuItem) => (total += Number(menuItem.price)),
 			0,
 		)
 	)

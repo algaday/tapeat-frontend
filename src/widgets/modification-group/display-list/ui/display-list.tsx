@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { ModificationGroupList } from "@features/menu/get-all-modification-group"
 
-export function ModificationGroupListWidget() {
+export default function ModificationGroupListWidget() {
 	return (
 		<>
 			<Button
