@@ -13,6 +13,7 @@ import { CartState, MenuItem } from "./types"
 const initialState: CartState = {
 	cart: [],
 	menuItemsTotal: 0,
+	orderTotal: 0,
 }
 
 export const cartSlice = createSlice({
@@ -84,6 +85,10 @@ export const cartSlice = createSlice({
 			})
 		},
 
+		calculateOrderTotal: (state, { payload }: PayloadAction<number>) => {
+			state.orderTotal = state.menuItemsTotal + payload
+		},
+
 		clearCart: (state) => {
 			state.cart = []
 			state.menuItemsTotal = 0
@@ -96,6 +101,7 @@ export const {
 	decreaseMenuQuantity,
 	increaseMenuQuantity,
 	clearCart,
+	calculateOrderTotal,
 } = cartSlice.actions
 
 export default cartSlice.reducer

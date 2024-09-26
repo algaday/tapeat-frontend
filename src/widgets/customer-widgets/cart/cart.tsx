@@ -1,24 +1,30 @@
 "use client"
 
-import { Button, Stack, Typography } from "@mui/material"
+import { Stack } from "@mui/material"
+import { useRouter } from "next/navigation"
 
 import { generateUniqueKey } from "@entities/cart"
 import { MenuItemCartPreview } from "@entities/menu-item/cart-preview"
 import { DeliveryOptions } from "@features/customer/delivery-options"
 import { DisplayAddressDeliveryFee } from "@features/customer/display-address-delivery-fee"
+import { OrderTotalPrice } from "@features/customer/order-total-price"
 import { ManageMenuQuantity } from "@features/manage-menu-quantity/"
 import { useAppSelector } from "@shared/lib/store"
 import { withStack } from "@shared/lib/with-margin-hoc"
 import { EmptyCart } from "@shared/ui/empty-cart/empty-cart"
 
-import { StyledFixedBox } from "./cart.styles"
+import { StyledBox } from "./cart.styles"
 
 export function CartWidget() {
-	const { cart: menuItems, menuItemsTotal } = useAppSelector(
-		(state) => state.cart,
-	)
+	const { cart: menuItems } = useAppSelector((state) => state.cart)
 
-	const DeliveryOptionsWithStack = withStack(DeliveryOptions, {
+	const router = useRouter()
+
+	const handleClick = () => {
+		router.push("/frito/order")
+	}
+
+	const DeliveryOptionsWithMargin = withStack(DeliveryOptions, {
 		marginBottom: 2,
 		paddingX: 2,
 	})
@@ -28,9 +34,8 @@ export function CartWidget() {
 	}
 
 	return (
-		<>
-			<DeliveryOptionsWithStack />
-
+		<StyledBox>
+			<DeliveryOptionsWithMargin />
 			<Stack paddingX={2}>
 				{menuItems.map((menuItem) => {
 					return (
@@ -39,6 +44,7 @@ export function CartWidget() {
 							id={menuItem.id}
 							nameOfDish={menuItem.nameOfDish}
 							image={menuItem.image.mediumThumbnailPath}
+							modifications={menuItem.modifications}
 							description={menuItem.description}
 							actionSlot={<ManageMenuQuantity menuItem={menuItem} />}
 						/>
@@ -46,20 +52,7 @@ export function CartWidget() {
 				})}
 				<DisplayAddressDeliveryFee />
 			</Stack>
-
-			<StyledFixedBox paddingX={2}>
-				<Stack direction="row" justifyContent="space-between" marginBottom={1}>
-					<Typography variant="body1" fontWeight={600}>
-						Итого
-					</Typography>
-					<Typography variant="body1" fontWeight={600}>
-						{menuItemsTotal} тг
-					</Typography>
-				</Stack>
-				<Button variant="contained" fullWidth>
-					Далее
-				</Button>
-			</StyledFixedBox>
-		</>
+			<OrderTotalPrice onClick={handleClick} buttonText="Далее" />
+		</StyledBox>
 	)
 }

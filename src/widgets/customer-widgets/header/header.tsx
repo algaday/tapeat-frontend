@@ -1,22 +1,20 @@
+"use client"
+
 import { Search } from "@mui/icons-material"
-import { Stack, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 
 import { Navigation } from "@features/customer/navigation"
 
+import { StyledStack } from "./header.styles"
+
 export function HeaderWidget() {
 	return (
-		<Stack
-			direction={"row"}
-			justifyContent="space-between"
-			alignItems="center"
-			paddingX={2}
-			paddingY={1}
-		>
+		<StyledStack>
 			<Navigation />
 			<Typography margin={0} variant="h6">
 				Frito
 			</Typography>
 			<Search />
-		</Stack>
+		</StyledStack>
 	)
 }

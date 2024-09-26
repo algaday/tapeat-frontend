@@ -32,12 +32,14 @@ export function MenuItemPreview(props: Props) {
 		<StyledCard onClick={handleOnCardClick}>
 			<CardMedia
 				component="img"
-				image={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${props.image}`}
+				image={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${props.image}`}
 				alt={props.name}
 			/>
 
 			<CardContent>
-				<Typography variant="h6">{props.name}</Typography>
+				<Typography variant="h6" fontSize="16px">
+					{props.name}
+				</Typography>
 			</CardContent>
 
 			<CardActions>
@@ -47,7 +49,7 @@ export function MenuItemPreview(props: Props) {
 					alignItems="center"
 					width="100%"
 				>
-					<Typography variant="body1" fontWeight="600">
+					<Typography variant="body1" fontSize="16px" fontWeight="600">
 						{props.price} ₸
 					</Typography>
 

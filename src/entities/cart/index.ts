@@ -5,6 +5,7 @@ export {
 	decreaseMenuQuantity,
 	increaseMenuQuantity,
 	clearCart,
+	calculateOrderTotal,
 } from "./model/slice"
 
 export { generateUniqueKey } from "./lib/generate-unique-key"

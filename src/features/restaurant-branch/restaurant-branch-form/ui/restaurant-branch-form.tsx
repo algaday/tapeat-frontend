@@ -10,7 +10,7 @@ import { useCreateBranchMutation } from "@entities/restaurant-branch"
 import { CreateBranchSchema, createBranchSchema } from "../model"
 import { Wrapper } from "./restaurant-branch-form.styles"
 
-export function RestaurantBranchForm() {
+export default function RestaurantBranchForm() {
 	const [createBranch] = useCreateBranchMutation()
 	const router = useRouter()
 	const methods = useForm<CreateBranchSchema>({

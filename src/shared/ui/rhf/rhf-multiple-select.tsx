@@ -9,13 +9,13 @@ import {
 	Stack,
 } from "@mui/material"
 
-import { useAppSelector } from "@shared/lib/store"
-
 import { ModificationGroupChip } from "../modification-group-chip/modification-group-chip"
+import { ModificationGroup } from "./types"
 
 type Props = SelectProps & {
 	name: string
 	text: string
+	options: ModificationGroup[]
 }
 
 const ITEM_HEIGHT = 48
@@ -29,12 +29,9 @@ const MenuProps = {
 	},
 }
 
-export function RHFSelect(props: Props) {
+export function RHFMultipleSelect(props: Props) {
 	const { control } = useFormContext()
 
-	const modificationGroups = useAppSelector(
-		(state) => state.modificationGroupsSlice.modificationGroups,
-	)
 	return (
 		<Stack marginY={2}>
 			<InputLabel id={props.labelId}>{props.text}</InputLabel>
@@ -59,7 +56,7 @@ export function RHFSelect(props: Props) {
 							}}
 							MenuProps={MenuProps}
 						>
-							{modificationGroups?.map((modificationGroup) => {
+							{props.options.map((modificationGroup) => {
 								return (
 									<MenuItem
 										value={modificationGroup.id}
