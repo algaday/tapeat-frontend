@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import { LoginForm } from "@features/auth/login"
+import { LoginForm } from '@features/auth/login';
 
-import { Wrapper } from "./login-page.styles"
+import { Wrapper } from './login-page.styles';
 
 export function LoginPage() {
-	return (
-		<Wrapper>
-			<LoginForm />
-		</Wrapper>
-	)
+  return (
+    <Wrapper>
+      <LoginForm />
+    </Wrapper>
+  );
 }

@@ -1,1 +1,1 @@
-export { ManageMenuQuantity } from "./ui/manage-menu-quantity"
+export { ManageMenuQuantity } from './ui/manage-menu-quantity';

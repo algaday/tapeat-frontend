@@ -1,1 +1,1 @@
-export { DisplayModification } from "./display-modifications"
+export { DisplayModification } from './display-modifications';

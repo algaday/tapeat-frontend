@@ -1,6 +1,6 @@
 export type ModificationPayload = {
-	prevModificationId: null | string
-	modification: Modification
-}
+  prevModificationId: null | string;
+  modification: Modification;
+};
 
-export type Modification = { id: string; price: number }
+export type Modification = { id: string; price: number };

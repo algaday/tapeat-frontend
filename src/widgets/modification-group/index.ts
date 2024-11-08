@@ -1,1 +1,1 @@
-export { ModificationGroupDetailsWidget } from "./details/modification-group-details"
+export { ModificationGroupDetailsWidget } from './details/modification-group-details';

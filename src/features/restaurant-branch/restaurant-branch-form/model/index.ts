@@ -1,1 +1,1 @@
-export * from "./create-branch-schema"
+export * from './create-branch-schema';

@@ -1,1 +1,1 @@
-export { CustomerMenuItemOverview } from "./ui/customer-menu-item.overview"
+export { CustomerMenuItemOverview } from './ui/customer-menu-item.overview';

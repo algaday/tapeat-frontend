@@ -1,30 +1,30 @@
-import LocationOnIcon from "@mui/icons-material/LocationOn"
-import { Box, IconButton } from "@mui/material"
-import { Stack } from "@mui/system"
-import styled from "styled-components"
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Box, IconButton } from '@mui/material';
+import { Stack } from '@mui/system';
+import styled from 'styled-components';
 
 export const StyledStack = styled(Stack)({
-	width: "100%",
-})
+  width: '100%',
+});
 
 export const Wrapper = styled(Box)({
-	width: "100%",
-	height: "100%",
-})
+  width: '100%',
+  height: '100%',
+});
 
 export const StyledIconButton = styled(IconButton)({
-	"&.MuiButtonBase-root": {
-		position: "absolute",
-		zIndex: "999",
-		top: "45%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-	},
-})
+  '&.MuiButtonBase-root': {
+    position: 'absolute',
+    zIndex: '999',
+    top: '45%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+});
 
 export const StyledIcon = styled(LocationOnIcon)({
-	"&.MuiSvgIcon-root": {
-		color: "red",
-		fontSize: "50px",
-	},
-})
+  '&.MuiSvgIcon-root': {
+    color: 'red',
+    fontSize: '50px',
+  },
+});

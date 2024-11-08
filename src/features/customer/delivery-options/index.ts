@@ -1,1 +1,1 @@
-export { DeliveryOptions } from "./delivery-options"
+export { DeliveryOptions } from './delivery-options';

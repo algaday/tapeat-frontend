@@ -1,11 +1,11 @@
-import { RestaurantBranchWidget } from "@/widgets/restaurant-branch"
+import { RestaurantBranchWidget } from '@/widgets/restaurant-branch';
 
-import { Wrapper } from "./restaurant-branch.styles"
+import { Wrapper } from './restaurant-branch.styles';
 
 export function RestaurantBranchPage() {
-	return (
-		<Wrapper>
-			<RestaurantBranchWidget />
-		</Wrapper>
-	)
+  return (
+    <Wrapper>
+      <RestaurantBranchWidget />
+    </Wrapper>
+  );
 }

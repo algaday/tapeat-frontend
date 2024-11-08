@@ -1,9 +1,9 @@
-import RegisterOwnerPage from "@/pages/register-owner/register-owner"
+import RegisterOwnerPage from '@/pages/register-owner/register-owner';
 
 export default function Page() {
-	return (
-		<>
-			<RegisterOwnerPage />
-		</>
-	)
+  return (
+    <>
+      <RegisterOwnerPage />
+    </>
+  );
 }

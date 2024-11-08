@@ -1,29 +1,29 @@
-import { useFormContext } from "react-hook-form"
+import { TextField, TextFieldProps } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { TextField, TextFieldProps } from "@mui/material"
-import get from "lodash/get"
+type IProps = {
+  name: string;
+};
 
-type Props = TextFieldProps & {
-	name: string
-}
+type Props = IProps & TextFieldProps;
 
-export function RHFInputField(props: Props) {
-	const { name } = props
-	const {
-		register,
-		formState: { errors },
-	} = useFormContext()
+export function RHFInputField({ name, ...other }: Props) {
+  const { control } = useFormContext();
 
-	const error = get(errors, name)
-
-	const errorText = error?.message as string
-
-	return (
-		<TextField
-			{...props}
-			{...register(name)}
-			error={!!error}
-			helperText={errorText}
-		/>
-	)
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: { error } }) => (
+        <TextField
+          {...field}
+          fullWidth
+          value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
+          error={!!error}
+          helperText={error ? error.message : ' '}
+          {...other}
+        />
+      )}
+    />
+  );
 }
