@@ -1,6 +1,13 @@
 export { baseApi } from './base-api';
 
-export { MENU_ITEMS_TAG, MODIFICATION_GROUP_TAG, RESTAURANT_BRANCH_TAG, USER_TAG } from './tags';
+export {
+  INVENTORY_COUNT,
+  INVENTORY_COUNTS,
+  MENU_ITEMS_TAG,
+  MODIFICATION_GROUP_TAG,
+  RESTAURANT_BRANCH_TAG,
+  USER_TAG,
+} from './tags';
 
 export type { Image } from './image/types';
 
