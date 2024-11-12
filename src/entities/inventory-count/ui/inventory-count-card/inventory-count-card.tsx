@@ -7,7 +7,7 @@ import { BoldTypography, CaptionTypography, CardLayout, InventoryCountHeader } f
 
 interface Props {
   completionStatus: React.ReactNode;
-  inventoryCount: InventoryCount;
+  inventoryCount: Pick<InventoryCount, 'branchName' | 'createdAt' | 'templateName'>;
 }
 
 export function InventoryCountCard({
