@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { updateDeliveryOption } from '@entities/user';
+import { DeliveryOption, updateDeliveryOption } from '@entities/user';
 import { useAppDispatch, useAppSelector } from '@shared/lib/store';
 
 import { StyledToggleButton, StyledToggleButtonGroup } from './delivery-options.styles';
@@ -15,7 +15,9 @@ export function DeliveryOptions() {
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    dispatch(updateDeliveryOption(event.target.value));
+    const value = (event.currentTarget as HTMLButtonElement).value;
+
+    dispatch(updateDeliveryOption(value as DeliveryOption));
 
     router.push('/frito/map');
   };

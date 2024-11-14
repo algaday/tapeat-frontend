@@ -63,7 +63,7 @@ export function MenuItemOverviewWidget() {
         shouldValidate: true,
       });
     }
-  }, [menuItem, error, isLoading, methods]);
+  }, [menuItem, error, isLoading, methods, modificationGroupsArray]);
 
   const onSubmit: SubmitHandler<UpdateMenuItemDto> = async (data) => {
     await updateMenuItems(data).unwrap();
