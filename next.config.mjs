@@ -4,6 +4,7 @@ const nextConfig = {
     suggestApiKey: 'f90ce829-0752-47f7-8948-c733ba8a0689',
     geoApiKey: 'd419fb5f-e802-442b-b6fb-050bd0b4a604',
   },
+  output: 'standalone',
   async rewrites() {
     return [
       {
