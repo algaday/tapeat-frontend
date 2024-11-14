@@ -1,5 +1,6 @@
-import { SideNavigation } from '@/widgets/side-navigation/side-navigation';
 import { Grid } from '@mui/material';
+
+import { SideNavigation } from '@/widgets/side-navigation/side-navigation';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

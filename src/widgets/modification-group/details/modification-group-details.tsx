@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
 import { CircularProgress, Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 import {
   ModificationGroupOverview,

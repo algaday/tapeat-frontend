@@ -1,19 +1,18 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, CircularProgress, InputAdornment, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { RHFImageUpload } from '@/shared/ui/rhf/rhf-image-upload';
 import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { RHFSelect } from '@/shared/ui/rhf/rhf-select';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, CircularProgress, InputAdornment, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
-
 import { useGetAllModificationGroupsQuery } from '@entities/modification-group';
 
+import { Wrapper } from './menu-item-form.styles';
 import { useCreateMenuItemMutation } from '../api/create-menu-item-api';
 import { CreateMenuItemSchema, createMenuItemSchema } from '../model/create-menu-item-schema';
-import { Wrapper } from './menu-item-form.styles';
 
 export function MenuItemForm() {
   const [createMenuItem] = useCreateMenuItemMutation();

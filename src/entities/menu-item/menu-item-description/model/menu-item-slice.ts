@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { MenuItem } from '../api/types';
 import { Modification, ModificationPayload } from './types';
+import { MenuItem } from '../api/types';
 
 type MenuItemState = {
   menuItem: MenuItem | null;

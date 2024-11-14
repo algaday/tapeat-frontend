@@ -1,6 +1,5 @@
 import { baseApi, MODIFICATION_GROUP_TAG } from '@shared/api';
 
-import { Modification } from '../ui/types';
 import {
   AddModificationDto,
   DeleteModificationGroupDto,
@@ -8,6 +7,7 @@ import {
   ModificationGroupDto,
   ModificationGroupResponse,
 } from './types';
+import { Modification } from '../ui/types';
 
 export const modificationGroupApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

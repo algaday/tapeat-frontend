@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { Address, DeliveryOption, UserState } from './types';
 import { User } from '../api/type';
 import { userApi } from '../api/user-api';
-import { Address, DeliveryOption, UserState } from './types';
 
 const initialState: UserState = {
   user: null,

@@ -1,6 +1,5 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-
 import { LngLat } from '@yandex/ymaps3-types';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export type Props = { children: ReactNode };
 

@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { useState } from 'react';
 
 export function CustomToggleButtonGroup() {
   const [alignment, setAlignment] = useState<string | null>('delivery');

@@ -1,20 +1,19 @@
 'use client';
 
-import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-
-import { RHFSwitch } from '@/shared/ui/rhf/rhd-switch';
-import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
-import { RHFRadio } from '@/shared/ui/rhf/rhf-radio';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import { RHFSwitch } from '@/shared/ui/rhf/rhd-switch';
+import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
+import { RHFRadio } from '@/shared/ui/rhf/rhf-radio';
 import { useCreateModificationGroupMutation } from '@entities/modification-group';
 
-import { CreateModificationGroupSchema, createModificationGroupSchema } from '../model/type';
 import { Wrapper } from './create-modification-group-form.styles';
+import { CreateModificationGroupSchema, createModificationGroupSchema } from '../model/type';
 
 const options = [
   {

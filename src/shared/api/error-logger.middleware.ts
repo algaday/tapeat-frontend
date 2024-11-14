@@ -1,8 +1,6 @@
 import type { Middleware } from '@reduxjs/toolkit';
-
-import { toast } from 'react-toastify';
-
 import { isRejectedWithValue } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 interface ErrorPayload {
   data: { message: string };

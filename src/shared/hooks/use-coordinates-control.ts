@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-
 import { LngLat } from '@yandex/ymaps3-types';
 import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
 import { addAddressAction, fetchAddressByUri, fetchAddressGeocode } from '@shared/api';
 import { useAppDispatch, useAppSelector } from '@shared/lib/store';

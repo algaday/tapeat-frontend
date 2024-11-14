@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Box, BoxProps } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { FormProvider as Form, UseFormReturn } from 'react-hook-form';
-
-import { Box, BoxProps } from '@mui/material';
 
 type Props = {
   children: ReactNode;

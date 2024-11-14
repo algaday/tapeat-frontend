@@ -1,17 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { Box, CircularProgress } from '@mui/material';
 import { LngLat } from '@yandex/ymaps3-types';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 import { testData } from '@features/map/select-pickup/ui/select-pickup';
 import { useCoordinatesControl } from '@shared/hooks';
 import { useAppSelector } from '@shared/lib/store';
 
-import { loadYandexMapModules, ModuleType } from '../lib/load-map';
 import { StyledIcon, StyledIconButton, StyledStack, Wrapper } from './display-map.styles';
+import { loadYandexMapModules, ModuleType } from '../lib/load-map';
 
 export function DisplayLocationMap() {
   const { locationContent, findAddressByCoordinates } = useCoordinatesControl();
@@ -40,8 +39,9 @@ export function DisplayLocationMap() {
   const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapListener, YMapMarker } =
     modules;
 
-  const handleActionEnd = (data) => {
-    const centerCoordinate = data.location.center.join(',');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleActionEnd = (data: any) => {
+    const centerCoordinate = data?.location.center.join(',');
     findAddressByCoordinates(centerCoordinate);
   };
 
@@ -66,6 +66,7 @@ export function DisplayLocationMap() {
             <YMapMarker coordinates={data.coordinates as LngLat} key={data.id}>
               <Box sx={{ transform: 'translate(-50%,-25%)' }}>
                 <Image
+                  // eslint-disable-next-line max-len
                   src="https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/restaurants/f8fea128-4b37-4d39-ba8e-8845945d9844/menu/3b7636a4-a5d4-463a-b4b5-c71e11f70bec.webp"
                   alt="hello"
                   width={50}

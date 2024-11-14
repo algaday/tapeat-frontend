@@ -1,9 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Stack, Typography } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { RHFSwitch } from '@/shared/ui/rhf/rhd-switch';
 import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Stack, Typography } from '@mui/material';
 
 import { StyledBox, Wrapper } from './add-modification-modal.styles';
 import { AddModificationSchema, addModificationSchema, ModificationModalProps } from './types';

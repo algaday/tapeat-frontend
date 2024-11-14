@@ -1,10 +1,9 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
-import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { useCreateBranchMutation } from '@entities/restaurant-branch';
 
 import { CreateBranchSchema, createBranchSchema } from '../model';

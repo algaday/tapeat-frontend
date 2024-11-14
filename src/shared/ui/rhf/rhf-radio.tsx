@@ -1,5 +1,3 @@
-import { Controller, useFormContext } from 'react-hook-form';
-
 import {
   FormControl,
   FormControlLabel,
@@ -8,6 +6,7 @@ import {
   RadioGroup,
   RadioProps,
 } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 type Option = {
   value: string | boolean;

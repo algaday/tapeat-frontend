@@ -1,19 +1,19 @@
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
+import { Button, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Modal } from '@/shared/ui/modal/modal';
 import { ModificationChangeModal } from '@/shared/ui/modification-change-modal/modification-change-modal';
 import { ModificationChangeSchema } from '@/shared/ui/modification-change-modal/type';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
-import { Button, Stack, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
 
+import { ModificationItem } from './modification-item';
+import { ModificationGroupOverviewProps } from './types';
 import {
   useDeleteModificationGroupMutation,
   useUpdateModificationGroupMutation,
 } from '../api/modification-group-api';
-import { ModificationItem } from './modification-item';
-import { ModificationGroupOverviewProps } from './types';
 
 export function ModificationGroupOverview(props: ModificationGroupOverviewProps) {
   const [deleteModificationGroup] = useDeleteModificationGroupMutation();
@@ -30,6 +30,7 @@ export function ModificationGroupOverview(props: ModificationGroupOverviewProps)
     router.push('/dashboard/menu/modification-group');
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleCancel = (name: string) => {
     setModal({ ...modal, [name]: false });
   };

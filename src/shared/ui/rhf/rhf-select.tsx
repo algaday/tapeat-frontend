@@ -1,6 +1,5 @@
-import { Controller, useFormContext } from 'react-hook-form';
-
 import { InputLabel, MenuItem, OutlinedInput, Select, SelectProps, Stack } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { useAppSelector } from '@shared/lib/store';
 

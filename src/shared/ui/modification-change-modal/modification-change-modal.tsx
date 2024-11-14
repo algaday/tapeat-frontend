@@ -1,11 +1,10 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Stack } from '@mui/material';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { RHFRadio } from '../rhf/rhf-radio';
 import { Wrapper } from './modification-change-modal.styles';
 import { ModificationChangeSchema, modificationChangeSchema } from './type';
+import { RHFRadio } from '../rhf/rhf-radio';
 
 type Props = {
   onSubmit: (data: ModificationChangeSchema) => void;

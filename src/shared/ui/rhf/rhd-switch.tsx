@@ -1,6 +1,5 @@
-import { Controller, useFormContext } from 'react-hook-form';
-
 import { Stack, Switch, SwitchProps, Typography } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 type Props = SwitchProps & { name: string; text: string };
 

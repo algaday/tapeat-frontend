@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import {
   Box,
   FormControl,
@@ -10,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { LngLat } from '@yandex/ymaps3-types';
+import { useState } from 'react';
 
 import { useCoordinatesControl } from '@shared/hooks';
 

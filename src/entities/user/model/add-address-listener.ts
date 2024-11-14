@@ -1,5 +1,4 @@
 import type { TypedStartListening } from '@reduxjs/toolkit';
-
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { addAddressAction } from '@shared/api';

@@ -1,3 +1,5 @@
+import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
+import { Box, Button, CardActions, Chip, IconButton, Typography } from '@mui/material';
 import { useState } from 'react';
 
 import { Modal } from '@/shared/ui/modal/modal';
@@ -6,11 +8,9 @@ import {
   StyledCard,
   StyledCardContent,
 } from '@/shared/ui/modification-card/modification-card.styles';
-import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
-import { Box, Button, CardActions, Chip, IconButton, Typography } from '@mui/material';
 
-import { useDeleteModificationMutation } from '../api/modification-group-api';
 import { Modification } from './types';
+import { useDeleteModificationMutation } from '../api/modification-group-api';
 
 export function ModificationItem(props: Modification) {
   const [modificationModal, setModificationModal] = useState(false);

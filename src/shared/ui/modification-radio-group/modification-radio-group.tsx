@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import {
   FormControl,
   FormControlLabel,
@@ -9,6 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 
 import { Modification, ModificationGroupSchema } from './type';
 

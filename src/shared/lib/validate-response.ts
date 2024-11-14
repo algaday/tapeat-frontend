@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ZodType } from 'zod';
 
 type TypeOf<T extends ZodType<any, any, any>> = T['_output'];

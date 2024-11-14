@@ -1,17 +1,16 @@
 'use client';
 
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
-import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { useLoginMutation } from '@entities/user';
 
-import { LoginFormSchema, loginFormShema } from '../model/login-form-schema';
 import { Wrapper } from './login-form.styles';
+import { LoginFormSchema, loginFormShema } from '../model/login-form-schema';
 
 export function LoginForm() {
   const methods = useForm<LoginFormSchema>({

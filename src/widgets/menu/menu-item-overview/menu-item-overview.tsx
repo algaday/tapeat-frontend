@@ -1,14 +1,14 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, InputAdornment, Stack, Typography } from '@mui/material';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { RHFImageUpdate } from '@/shared/ui/rhf/rhf-image-update';
 import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { RHFSelect } from '@/shared/ui/rhf/rhf-select';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { useParams, useRouter } from 'next/navigation';
 
 import {
   useDeleteMenuItemMutation,
@@ -38,7 +38,7 @@ export function MenuItemOverviewWidget() {
 
   const router = useRouter();
 
-  const modificationGroupsArray = menuItem?.modificationGroups?.map((menuItem) => menuItem.id);
+  const modificationGroupsArray = menuItem?.modificationGroups?.map((item) => item.id);
 
   const methods = useForm<UpdateMenuItemDto>({
     resolver: zodResolver(updateMenuItemSchema),

@@ -1,11 +1,9 @@
-import { useState } from 'react';
-
-import { Image as ImageType } from '@/shared/api';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 import Image from 'next/image';
+import { useState } from 'react';
 
-import { useCreateImageMutation } from '@shared/api';
+import { Image as ImageType, useCreateImageMutation } from '@/shared/api';
 
 import { StyledInputField, Wrapper } from './image.styles';
 

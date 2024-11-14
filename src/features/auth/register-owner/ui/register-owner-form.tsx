@@ -1,17 +1,16 @@
 'use client';
 
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
-import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import { RHFInputField } from '@/shared/ui/rhf/rhf-input-field';
 import { useRegisterOwnerMutation } from '@entities/user';
 
-import { RegisterFormSchema, registerFormSchema } from '../model/register-form-schema';
 import { FormWrapper } from './register-owner-form.styles';
+import { RegisterFormSchema, registerFormSchema } from '../model/register-form-schema';
 
 export function RegisterOwnerForm() {
   const router = useRouter();

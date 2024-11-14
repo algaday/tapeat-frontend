@@ -1,14 +1,13 @@
-import { toast } from 'react-toastify';
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import {
   calculateMenuTotal,
   calculateMenuTotalWithQuantity,
 } from '@shared/lib/calculate-menu-total';
 
-import { generateUniqueKey } from '../lib/generate-unique-key';
 import { CartState, MenuItem } from './types';
+import { generateUniqueKey } from '../lib/generate-unique-key';
 
 const initialState: CartState = {
   cart: [],
@@ -24,9 +23,7 @@ export const cartSlice = createSlice({
 
       const menuItemKey = generateUniqueKey(menuItem);
 
-      const findMenuItem = state.cart.findIndex(
-        (menuItem) => generateUniqueKey(menuItem) === menuItemKey,
-      );
+      const findMenuItem = state.cart.findIndex((item) => generateUniqueKey(item) === menuItemKey);
 
       if (findMenuItem !== -1) {
         state.cart[findMenuItem].quantity += menuItem.quantity;
@@ -43,7 +40,7 @@ export const cartSlice = createSlice({
 
     decreaseMenuQuantity: (state, { payload }: PayloadAction<MenuItem>) => {
       const menuItem = state.cart.find(
-        (menuItem) => generateUniqueKey(menuItem) === generateUniqueKey(payload),
+        (item) => generateUniqueKey(item) === generateUniqueKey(payload),
       );
 
       if (!menuItem) {

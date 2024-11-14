@@ -1,7 +1,7 @@
-import { StyledFileInput } from '@/shared/ui/image-upload/image-upload.styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Button } from '@mui/material';
 
+import { StyledFileInput } from '@/shared/ui/image-upload/image-upload.styles';
 import { Image, useCreateImageMutation } from '@shared/api';
 
 type Props = {

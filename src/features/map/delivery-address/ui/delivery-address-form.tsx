@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
-
 import { Button, Stack, TextField } from '@mui/material';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { fetchSuggestions, Suggestion } from '@shared/api';
 import { useCoordinatesControl, useDebounce } from '@shared/hooks';
@@ -71,9 +71,9 @@ export function DeliveryAddressForm() {
         multiline
         onChange={handleSearchChange}
       />
-
+      {/* //todo: fix it later || [] */}
       {showSuggestion && (
-        <SuggestionsContainer suggestions={suggestion} onClick={handleSuggestionClick} />
+        <SuggestionsContainer suggestions={suggestion || []} onClick={handleSuggestionClick} />
       )}
 
       <Stack direction="row" gap={2} marginY={2}>

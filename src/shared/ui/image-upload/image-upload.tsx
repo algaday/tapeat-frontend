@@ -1,6 +1,7 @@
-import { Image, useCreateImageMutation } from '@/shared/api/';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Box, Button } from '@mui/material';
+
+import { Image, useCreateImageMutation } from '@/shared/api/';
 
 import { StyledFileInput, StyledTypography } from './image-upload.styles';
 
