@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3333',
+  baseUrl: process.env.NEXT_PUBLIC_BASE_API,
   credentials: 'include',
 });
