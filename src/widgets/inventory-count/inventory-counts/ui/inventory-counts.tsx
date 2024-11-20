@@ -13,10 +13,13 @@ import { List, StyledBox } from './style';
 export function InventoryCounts() {
   const inventoryCountIds = useAppSelector((store) => store.inventoryCount.inventoryCountIds);
 
-  const { data, isLoading } = useGetInventoryCountsQuery({
-    ids: inventoryCountIds,
-    status: InventoryCountStatus.PENDING,
-  });
+  const { data, isLoading } = useGetInventoryCountsQuery(
+    {
+      ids: inventoryCountIds,
+      status: InventoryCountStatus.PENDING,
+    },
+    { skip: !inventoryCountIds.length },
+  );
 
   console.log(data);
   return (

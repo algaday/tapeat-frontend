@@ -6,10 +6,9 @@ import {
   InventoryCountStorage,
   removeId,
   useGetInventoryCountQuery,
-  useUpdateInventoryCountMutation,
+  useSubmitInventoryCountMutation,
 } from '@entities/inventory-count';
 import { InventoryCountStorageCard } from '@entities/storage';
-import { InventoryCountStatus } from '@shared/constants';
 import { useAppDispatch } from '@shared/lib/store';
 import { InventoryButton } from '@shared/ui/inventory-button';
 import { Link } from '@shared/ui/link';
@@ -36,7 +35,7 @@ export function InventoryCountStorages() {
 
   const inventoryCountId = params?.inventoryCountId as string;
   const { data } = useGetInventoryCountQuery(inventoryCountId);
-  const [updateStatus] = useUpdateInventoryCountMutation();
+  const [submit] = useSubmitInventoryCountMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const isDisabled = data?.storages.some((storage) =>
@@ -44,7 +43,7 @@ export function InventoryCountStorages() {
   );
 
   const handleSubmit = async () => {
-    await updateStatus({ inventoryCountId, status: InventoryCountStatus.AWAITING_APPROVAL });
+    await submit({ inventoryCountId });
     dispatch(removeId({ id: inventoryCountId }));
     router.back();
   };

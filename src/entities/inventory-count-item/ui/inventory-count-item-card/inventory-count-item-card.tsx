@@ -11,6 +11,23 @@ interface Props {
   item: Omit<Ingredient, 'type'>;
 }
 
+const translateUnit = (unit: string): string => {
+  switch (unit) {
+    case 'litre':
+      return 'литр';
+    case 'ml':
+      return 'мл';
+    case 'kg':
+      return 'кг';
+    case 'g':
+      return 'грамм';
+    case 'piece':
+      return 'штук';
+    default:
+      return unit;
+  }
+};
+
 export const InventoryCountItemCard = ({
   status,
   item: { name, quantity, unit },
@@ -21,7 +38,7 @@ export const InventoryCountItemCard = ({
       <Stack spacing={1} flex={1}>
         <Typography fontSize={14}>{name}</Typography>
         <CaptionTypography>
-          {quantity} {unit}
+          {quantity} {translateUnit(unit)}
         </CaptionTypography>
       </Stack>
       <Box sx={{ cursor: 'pointer' }}>{status}</Box>

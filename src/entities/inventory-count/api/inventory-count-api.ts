@@ -9,8 +9,8 @@ import {
   GetInventoryCountsRequest,
   GetInventoryCountsResponse,
   inventoryCount,
+  SubmitInventoryCountRequest,
   UpdateInventoryCountItemRequest,
-  UpdateInventoryCountRequest,
 } from './types';
 
 export const inventoryCountApi = baseApi.injectEndpoints({
@@ -50,11 +50,10 @@ export const inventoryCountApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [INVENTORY_COUNT],
     }),
-    updateInventoryCount: build.mutation<null, UpdateInventoryCountRequest>({
-      query: ({ inventoryCountId, status }) => ({
+    submitInventoryCount: build.mutation<null, SubmitInventoryCountRequest>({
+      query: ({ inventoryCountId }) => ({
         method: 'PUT',
-        url: `inventory-counts/${inventoryCountId}`,
-        body: { status },
+        url: `inventory-counts/${inventoryCountId}/submit`,
       }),
       invalidatesTags: [INVENTORY_COUNT, INVENTORY_COUNTS],
     }),
@@ -67,5 +66,5 @@ export const {
   useGetInventoryCountsQuery,
   useGetInventoryCountQuery,
   useUpdateInventoryCountItemQuantityMutation,
-  useUpdateInventoryCountMutation,
+  useSubmitInventoryCountMutation,
 } = inventoryCountApi;

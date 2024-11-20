@@ -18,7 +18,6 @@ const inventoryCountItem = z.object({
 });
 
 const inventoryCountStorage = z.object({
-  id: z.string(),
   slug: z.string(),
   name: z.string(),
   items: z.array(inventoryCountItem),
@@ -77,4 +76,7 @@ export interface UpdateInventoryCountItemRequest {
 export interface UpdateInventoryCountRequest {
   inventoryCountId: string;
   status?: InventoryCountStatus;
+}
+export interface SubmitInventoryCountRequest {
+  inventoryCountId: string;
 }
