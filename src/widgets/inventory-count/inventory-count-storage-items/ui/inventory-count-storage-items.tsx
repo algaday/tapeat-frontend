@@ -27,7 +27,7 @@ export function InventoryCountStorageItems({ storage }: Props) {
     setOpen(false);
     setSelectedItem(null);
   };
-
+  console.log();
   return (
     <StyledBox>
       <List>
@@ -35,7 +35,9 @@ export function InventoryCountStorageItems({ storage }: Props) {
           <InventoryCountItemCard
             key={item.id}
             item={{ name: item.name, quantity: item.quantity, unit: item.unit as IngredientUnit }}
-            status={<FulfillmentStatus isFulfilled={!!item.quantity} />}
+            status={
+              <FulfillmentStatus isFulfilled={typeof item.quantity === 'number' ? true : false} />
+            }
             openModal={() => handleOpenModal(item)}
           />
         ))}

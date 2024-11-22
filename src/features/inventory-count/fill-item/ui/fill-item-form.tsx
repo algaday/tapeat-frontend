@@ -34,6 +34,7 @@ export const FillItemForm = ({ item, onClose }: Props) => {
   const { handleSubmit } = methods;
 
   const onSubmit = async (data: FormValueProps) => {
+    console.log(data);
     updateQuantity({
       inventoryCountId: params?.inventoryCountId || '',
       quantity: parseInt(data.quantity),
