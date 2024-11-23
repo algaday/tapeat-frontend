@@ -24,10 +24,13 @@ export function InventoryCountStorageItems({ storage }: Props) {
   };
 
   const handleCloseModal = () => {
-    setOpen(false);
-    setSelectedItem(null);
+    //to wait so phones keyboard closes, to avoid potential glitches
+    setTimeout(() => {
+      setOpen(false);
+      setSelectedItem(null);
+      window.scrollTo(0, 0);
+    }, 200);
   };
-  console.log();
   return (
     <StyledBox>
       <List>
