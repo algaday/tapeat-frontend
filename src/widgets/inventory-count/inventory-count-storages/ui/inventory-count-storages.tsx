@@ -19,7 +19,7 @@ import { List, StyledBox } from './style';
 const findProgressIndicator = (storage: InventoryCountStorage): number => {
   const itemsCount = storage.items.length;
   const filledItems = storage.items.reduce((acc, cur) => {
-    if (cur.quantity) {
+    if (cur.quantity !== null && cur.quantity >= 0) {
       // eslint-disable-next-line no-param-reassign
       acc = acc + 1;
     }
