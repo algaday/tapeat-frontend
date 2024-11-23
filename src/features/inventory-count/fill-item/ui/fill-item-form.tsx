@@ -51,7 +51,7 @@ export const FillItemForm = ({ item, onClose }: Props) => {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <FormWrapper>
         <FormBox>
-          <RHFInputField name="quantity" type="number" />
+          <RHFInputField name="quantity" type="tel" />
         </FormBox>
 
         <Box display="flex" justifyContent="space-between" gap={3}>
