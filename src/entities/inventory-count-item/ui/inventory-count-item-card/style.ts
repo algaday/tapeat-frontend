@@ -9,7 +9,6 @@ export const CardLayout = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
   display: 'flex',
   alignItems: 'center',
-  cursor: 'pointer',
 }));
 
 export const CaptionTypography = styled(Typography)(({ theme }) => ({
