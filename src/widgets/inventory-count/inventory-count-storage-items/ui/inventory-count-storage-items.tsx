@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { InventoryCountItem, InventoryCountStorage } from '@entities/inventory-count';
-import { InventoryCountItemCard } from '@entities/inventory-count-item';
+import { InventoryCountStorageItemCard } from '@entities/inventory-count-item';
 import { FillItem } from '@features/inventory-count/fill-item';
 import { IngredientUnit } from '@shared/constants';
 import { FulfillmentStatus } from '@shared/ui/status-tags/fulfillment-status';
@@ -35,7 +35,7 @@ export function InventoryCountStorageItems({ storage }: Props) {
     <StyledBox>
       <List>
         {storage?.items?.map((item) => (
-          <InventoryCountItemCard
+          <InventoryCountStorageItemCard
             key={item.id}
             item={{ name: item.name, quantity: item.quantity, unit: item.unit as IngredientUnit }}
             status={
