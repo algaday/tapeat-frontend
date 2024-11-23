@@ -49,8 +49,8 @@ export const CreateInventoryCountForm = () => {
   const [createInventoryCount] = useCreateInventoryCountMutation();
 
   const onSubmit = async (data: FormValueProps) => {
-    await createInventoryCount(data).unwrap();
-    router.push(`/restaurants/${restaurantId}/inventory-counts`);
+    const res = await createInventoryCount(data).unwrap();
+    router.push(`/restaurants/${restaurantId}/inventory-counts/${res.id}/storages`);
   };
 
   return (
