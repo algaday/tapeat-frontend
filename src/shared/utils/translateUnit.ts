@@ -12,6 +12,8 @@ export const translateUnit = (unit: IngredientUnit): string => {
       return 'грамм';
     case 'piece':
       return 'штук';
+    case 'pack':
+      return 'пачка';
     default:
       return unit;
   }

@@ -1,1 +1,1 @@
-export * from './ui/submit';
+export * from './ui/submit-inventory-count';

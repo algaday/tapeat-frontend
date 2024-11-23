@@ -1,16 +1,10 @@
 'use client';
 import { CircularProgress } from '@mui/material';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-import {
-  InventoryCountStorage,
-  removeId,
-  useGetInventoryCountQuery,
-  useSubmitInventoryCountMutation,
-} from '@entities/inventory-count';
+import { InventoryCountStorage, useGetInventoryCountQuery } from '@entities/inventory-count';
 import { InventoryCountStorageCard } from '@entities/storage';
-import { useAppDispatch } from '@shared/lib/store';
-import { InventoryButton } from '@shared/ui/inventory-button';
+import { SubmitInventoryCount } from '@features/inventory-count/submit';
 import { Link } from '@shared/ui/link';
 import { ProgressIndicator } from '@shared/ui/status-tags/progress-indicator';
 
@@ -35,18 +29,10 @@ export function InventoryCountStorages() {
 
   const inventoryCountId = params?.inventoryCountId as string;
   const { data } = useGetInventoryCountQuery(inventoryCountId);
-  const [submit] = useSubmitInventoryCountMutation();
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const isDisabled = data?.storages.some((storage) =>
-    storage.items.some((item) => item.quantity === null),
-  );
 
-  const handleSubmit = async () => {
-    await submit({ inventoryCountId });
-    dispatch(removeId({ id: inventoryCountId }));
-    router.back();
-  };
+  const isDisabled = !data?.storages.every((storage) =>
+    storage.items.every((item) => item.quantity !== null),
+  );
 
   if (!data?.storages) return <CircularProgress />;
 
@@ -63,9 +49,7 @@ export function InventoryCountStorages() {
           </Link>
         ))}
       </List>
-      <InventoryButton disabled={isDisabled} onClick={handleSubmit}>
-        Отправить отчет
-      </InventoryButton>
+      <SubmitInventoryCount disabled={!!isDisabled} />
     </StyledBox>
   );
 }
