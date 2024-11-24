@@ -32,9 +32,7 @@ export const FillItemForm = ({ item, onClose }: Props) => {
     defaultValues: { quantity: quantity?.toString() || '' },
   });
   const { handleSubmit } = methods;
-
   const onSubmit = async (data: FormValueProps) => {
-    console.log(data);
     updateQuantity({
       inventoryCountId: params?.inventoryCountId || '',
       quantity: Number(data.quantity),
@@ -51,7 +49,14 @@ export const FillItemForm = ({ item, onClose }: Props) => {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <FormWrapper>
         <FormBox>
-          <RHFInputField name="quantity" type="tel" />
+          <RHFInputField
+            name="quantity"
+            type="text"
+            inputProps={{
+              inputMode: 'decimal',
+              pattern: '[0-9]*[.,]?[0-9]*', // Allows optional decimal point (or comma) for fractions
+            }}
+          />
         </FormBox>
 
         <Box display="flex" justifyContent="space-between" gap={3}>
