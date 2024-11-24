@@ -17,7 +17,7 @@ export const InventoryCountItemCard = ({ status, item: { name, quantity, unit } 
       <Stack spacing={1} flex={1}>
         <Typography fontSize={14}>{name}</Typography>
         <CaptionTypography>
-          {quantity} {translateUnit(unit)}
+          {quantity?.toFixed(2)} {translateUnit(unit)}
         </CaptionTypography>
       </Stack>
       <Box sx={{ cursor: 'pointer' }}>{status}</Box>

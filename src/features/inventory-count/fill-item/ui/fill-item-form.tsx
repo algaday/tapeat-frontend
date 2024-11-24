@@ -37,7 +37,7 @@ export const FillItemForm = ({ item, onClose }: Props) => {
     console.log(data);
     updateQuantity({
       inventoryCountId: params?.inventoryCountId || '',
-      quantity: parseInt(data.quantity),
+      quantity: Number(data.quantity),
       itemId: item.id,
     });
     onClose();
