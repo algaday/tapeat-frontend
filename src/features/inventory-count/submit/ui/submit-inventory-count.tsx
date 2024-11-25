@@ -1,6 +1,8 @@
 'use client';
 
+import CircularProgress from '@mui/material/CircularProgress';
 import { useParams, useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 import { removeId, useSubmitInventoryCountMutation } from '@entities/inventory-count';
 import { useAppDispatch } from '@shared/lib/store';
@@ -16,19 +18,41 @@ export function SubmitInventoryCount({ disabled }: Props) {
   const restaurantId = params?.restaurantId as string;
   const inventoryCountId = params?.inventoryCountId as string;
 
-  const [submit] = useSubmitInventoryCountMutation();
+  const [submit, { isLoading }] = useSubmitInventoryCountMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
-    await submit({ inventoryCountId });
-    dispatch(removeId({ id: inventoryCountId }));
-    router.push(`/restaurants/${restaurantId}/inventory-counts`);
+    try {
+      await submit({ inventoryCountId }).unwrap();
+      dispatch(removeId({ id: inventoryCountId }));
+      toast.success('Отчет отправлен');
+      router.push(`/restaurants/${restaurantId}/inventory-counts`);
+    } catch (error) {
+      toast.error('Ошибка! Заполните заново или сообщите ответственному человеку');
+      console.error('Failed to submit inventory count:', error);
+    }
   };
 
-  //todo: improve the style of the button, while pressing becomes blue colored
   return (
-    <InventoryButton variant="contained" onClick={handleSubmit} disabled={disabled}>
-      Завершить Отчет
+    <InventoryButton
+      variant="contained"
+      onClick={handleSubmit}
+      disabled={disabled || isLoading}
+      sx={{
+        position: 'relative',
+      }}
+    >
+      {isLoading ? (
+        <CircularProgress
+          size={24}
+          sx={{
+            color: 'white',
+            position: 'absolute',
+          }}
+        />
+      ) : (
+        'Завершить Отчет'
+      )}
     </InventoryButton>
   );
 }
