@@ -1,5 +1,5 @@
 'use client';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography, Box } from '@mui/material';
 
 import { InventoryCountCard, useGetInventoryCountsQuery } from '@entities/inventory-count';
 import { NavigateToCreateInventoryCount } from '@features/inventory-count/create';
@@ -21,11 +21,20 @@ export function InventoryCounts() {
     { skip: !inventoryCountIds.length },
   );
 
-  console.log(data);
   return (
     <StyledBox>
       <List>
         {isLoading && <CircularProgress />}
+        {!isLoading && !data && (
+          <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+            <Typography variant="h6" color="textSecondary" align="center">
+              🙅‍♀️ Нет доступных отчетов
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" mt={1}>
+              Создайте новый отчет или дождитесь новых задач.
+            </Typography>
+          </Box>
+        )}
         {data?.map((item) => (
           <Link href={`inventory-counts/${item.id}/storages`} key={item.id}>
             <InventoryCountCard
