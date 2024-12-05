@@ -1,1 +1,1 @@
-export { RestaurantBranchWidget } from "./restaurant-branch"
+export { RestaurantBranchWidget } from './restaurant-branch';

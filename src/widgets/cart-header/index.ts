@@ -1,1 +1,1 @@
-export { CartHeader } from "./cart-header"
+export { CartHeader } from './cart-header';

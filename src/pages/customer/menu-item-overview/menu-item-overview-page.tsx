@@ -1,5 +1,5 @@
-import { MenuItemDetailsWidget } from "@widgets/customer-widgets"
+import { MenuItemDetailsWidget } from '@widgets/customer-widgets';
 
 export function MenuItemOverview() {
-	return <MenuItemDetailsWidget />
+  return <MenuItemDetailsWidget />;
 }

@@ -1,5 +1,5 @@
-import { SingleMenuItemPage } from "@/pages/menu/single-menu-item/single-menu-item-page"
+import { SingleMenuItemPage } from '@/pages/menu/single-menu-item/single-menu-item-page';
 
 export default function Page() {
-	return <SingleMenuItemPage />
+  return <SingleMenuItemPage />;
 }

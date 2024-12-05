@@ -1,1 +1,1 @@
-export { AddModificationModal } from "./add-modification-modal"
+export { AddModificationModal } from './add-modification-modal';

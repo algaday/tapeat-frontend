@@ -1,16 +1,16 @@
-"use client"
+'use client';
 
-import { CssBaseline, ThemeProvider } from "@mui/material"
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import theme from "./theme"
+import theme from './theme';
 
 const CustomThemeProvider = ({ children }: { children: React.ReactNode }) => {
-	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			{children}
-		</ThemeProvider>
-	)
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
+};
 
-export default CustomThemeProvider
+export default CustomThemeProvider;

@@ -1,38 +1,32 @@
-"use client"
+'use client';
 
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation';
 
-import { updateDeliveryOption } from "@entities/user"
-import { useAppDispatch, useAppSelector } from "@shared/lib/store"
+import { DeliveryOption, updateDeliveryOption } from '@entities/user';
+import { useAppDispatch, useAppSelector } from '@shared/lib/store';
 
-import {
-	StyledToggleButton,
-	StyledToggleButtonGroup,
-} from "./delivery-options.styles"
+import { StyledToggleButton, StyledToggleButtonGroup } from './delivery-options.styles';
 
 export function DeliveryOptions() {
-	const deliveryType = useAppSelector((state) => state.user.address?.type)
+  const deliveryType = useAppSelector((state) => state.user.address?.type);
 
-	const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-	const router = useRouter()
+  const router = useRouter();
 
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		dispatch(updateDeliveryOption(event.target.value))
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const value = (event.currentTarget as HTMLButtonElement).value;
 
-		router.push("/frito/map")
-	}
+    dispatch(updateDeliveryOption(value as DeliveryOption));
 
-	return (
-		<StyledToggleButtonGroup
-			value={deliveryType}
-			exclusive
-			fullWidth
-			onChange={handleClick}
-		>
-			<StyledToggleButton value="delivery">Доставка</StyledToggleButton>
-			<StyledToggleButton value="pick-up">Самовывоз</StyledToggleButton>
-			<StyledToggleButton value="restaurant">В заведении</StyledToggleButton>
-		</StyledToggleButtonGroup>
-	)
+    router.push('/frito/map');
+  };
+
+  return (
+    <StyledToggleButtonGroup value={deliveryType} exclusive fullWidth onChange={handleClick}>
+      <StyledToggleButton value="delivery">Доставка</StyledToggleButton>
+      <StyledToggleButton value="pick-up">Самовывоз</StyledToggleButton>
+      <StyledToggleButton value="restaurant">В заведении</StyledToggleButton>
+    </StyledToggleButtonGroup>
+  );
 }

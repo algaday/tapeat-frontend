@@ -1,12 +1,7 @@
-export { cartSlice } from "./model/slice"
+export { cartSlice } from './model/slice';
 
-export {
-	addToCart,
-	decreaseMenuQuantity,
-	increaseMenuQuantity,
-	clearCart,
-} from "./model/slice"
+export { addToCart, decreaseMenuQuantity, increaseMenuQuantity, clearCart } from './model/slice';
 
-export { generateUniqueKey } from "./lib/generate-unique-key"
+export { generateUniqueKey } from './lib/generate-unique-key';
 
-export type { MenuItem } from "./model/types"
+export type { MenuItem } from './model/types';

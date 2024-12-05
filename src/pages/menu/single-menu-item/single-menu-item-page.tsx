@@ -1,5 +1,5 @@
-import { MenuItemOverviewWidget } from "@widgets/menu"
+import { MenuItemOverviewWidget } from '@widgets/menu';
 
 export function SingleMenuItemPage() {
-	return <MenuItemOverviewWidget />
+  return <MenuItemOverviewWidget />;
 }

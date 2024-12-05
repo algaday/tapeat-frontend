@@ -1,3 +1,3 @@
-export { useGetAllMenuItemsQuery } from "./api/menu-items-api"
+export { useGetAllMenuItemsQuery } from './api/menu-items-api';
 
-export { menuItemsSlice } from "./model/menu-items-slice"
+export { menuItemsSlice } from './model/menu-items-slice';
