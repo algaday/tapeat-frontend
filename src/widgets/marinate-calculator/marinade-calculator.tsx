@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert, Box, Button, Divider, InputAdornment, Typography } from '@mui/material';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
@@ -40,7 +39,7 @@ export function MarinadeCalculator() {
   const methods = useForm<MarinadeCalculatorSchema>({
     resolver: zodResolver(marinadeCalculatorSchema),
     mode: 'onSubmit',
-	reValidateMode: 'onSubmit',
+    reValidateMode: 'onSubmit',
     defaultValues: {
       containerWeight: lastSavedContainerWeight ? parseFloat(lastSavedContainerWeight) : 1.4,
     },
