@@ -8,22 +8,29 @@ import { z } from 'zod';
 
 import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
 
+const parseNumericString = (value: string) => {
+  return parseFloat(value.replace(',', '.'));
+};
+
 export const marinadeCalculatorSchema = z
   .object({
     containerWeight: z
-      .number({ message: 'Введите вес контейнера' })
-      .min(0.01, { message: 'Вес контейнера должен быть больше 0' }), // Avoid zero weight
+      .string({ message: 'Введите вес контейнера' })
+      .min(1, { message: 'Вес контейнера должен быть больше 0' }), // Avoid zero weight
     totalWeight: z
-      .number({ message: 'Введите общий вес' })
-      .min(0.01, { message: 'Общий вес должен быть больше 0' })
-      .refine((val) => !isNaN(val), {
+      .string({ message: 'Введите общий вес' })
+      .min(1, { message: 'Общий вес должен быть больше 0' })
+      .refine((val) => !isNaN(parseNumericString(val)), {
         message: 'Введите общий вес (мясо + контейнер)',
       }),
   })
-  .refine((data) => data.totalWeight > data.containerWeight, {
-    message: 'Общий вес должен быть больше веса контейнера',
-    path: ['totalWeight'],
-  });
+  .refine(
+    (data) => parseNumericString(data.totalWeight) > parseNumericString(data.containerWeight),
+    {
+      message: 'Общий вес должен быть больше веса контейнера',
+      path: ['totalWeight'],
+    },
+  );
 
 export type MarinadeCalculatorSchema = z.infer<typeof marinadeCalculatorSchema>;
 
@@ -41,7 +48,7 @@ export function MarinadeCalculator() {
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
     defaultValues: {
-      containerWeight: lastSavedContainerWeight ? parseFloat(lastSavedContainerWeight) : 1.4,
+      containerWeight: lastSavedContainerWeight ? lastSavedContainerWeight : '1,4',
     },
   });
 
@@ -55,7 +62,8 @@ export function MarinadeCalculator() {
   };
 
   const calculateMarinadeAmount = (data: MarinadeCalculatorSchema) => {
-    const netMeatWeight = data.totalWeight - data.containerWeight;
+    const netMeatWeight =
+      parseNumericString(data.totalWeight) - parseNumericString(data.containerWeight);
 
     const marinadeWeight = netMeatWeight / 4;
 
@@ -78,13 +86,12 @@ export function MarinadeCalculator() {
           <RHFInputField
             name="containerWeight"
             placeholder="Вес контейнера (кг)"
-            type="number"
+            type="text"
             margin="normal"
             fullWidth
             sx={{ my: 0 }}
             showErrorMessage={false}
             InputProps={{
-              inputProps: { min: 0, max: 100000 },
               endAdornment: <InputAdornment position="end">кг</InputAdornment>,
             }}
             inputProps={{
@@ -97,14 +104,13 @@ export function MarinadeCalculator() {
           </Typography>
           <RHFInputField
             name="totalWeight"
-            type="number"
+            type="text"
             placeholder="Общий вес (кг)"
             margin="normal"
             fullWidth
             showErrorMessage={false}
             sx={{ my: 0 }}
             InputProps={{
-              inputProps: { min: 0, max: 100000 },
               endAdornment: <InputAdornment position="end">кг</InputAdornment>,
             }}
             inputProps={{

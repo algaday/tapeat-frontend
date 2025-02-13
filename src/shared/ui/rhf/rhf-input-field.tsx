@@ -22,11 +22,6 @@ export function RHFInputField({ name, showErrorMessage, ...other }: Props) {
           value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
           error={!!error}
           helperText={error && showErrorMessage ? error.message : ' '}
-          onChange={(event) => {
-            const newValue =
-              other.type === 'number' ? Number(event.target.value) : event.target.value;
-            field.onChange(isNaN(newValue as number) ? '' : newValue);
-          }}
           {...other}
         />
       )}
