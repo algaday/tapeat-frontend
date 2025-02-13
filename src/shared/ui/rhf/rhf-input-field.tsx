@@ -3,12 +3,13 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 type IProps = {
   name: string;
+  showErrorMessage?: boolean;
 };
 
 type Props = IProps & TextFieldProps;
 
-export function RHFInputField({ name, ...other }: Props) {
-  const { control } = useFormContext();
+export function RHFInputField({ name, showErrorMessage, ...other }: Props) {
+  const { control, watch } = useFormContext();
 
   return (
     <Controller
@@ -18,9 +19,13 @@ export function RHFInputField({ name, ...other }: Props) {
         <TextField
           {...field}
           fullWidth
-          value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
+          value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}	
           error={!!error}
-          helperText={error ? error.message : ' '}
+          helperText={error && showErrorMessage ? error.message : ' '}
+		  onChange={(event) => {
+            const newValue = other.type === "number" ? Number(event.target.value) : event.target.value;
+  			field.onChange(isNaN(newValue as number) ? "" : newValue);
+          }}
           {...other}
         />
       )}
