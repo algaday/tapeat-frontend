@@ -87,6 +87,10 @@ export function MarinadeCalculator() {
               inputProps: { min: 0, max: 100000 },
               endAdornment: <InputAdornment position="end">кг</InputAdornment>,
             }}
+            inputProps={{
+              inputMode: 'decimal',
+              pattern: '[0-9]*[.,]?[0-9]*', // Allows optional decimal point (or comma) for fractions
+            }}
           />
           <Typography sx={{ color: '#333', fontSize: 17 }}>
             Общий вес (мясо + контейнер) кг
@@ -102,6 +106,10 @@ export function MarinadeCalculator() {
             InputProps={{
               inputProps: { min: 0, max: 100000 },
               endAdornment: <InputAdornment position="end">кг</InputAdornment>,
+            }}
+            inputProps={{
+              inputMode: 'decimal',
+              pattern: '[0-9]*[.,]?[0-9]*', // Allows optional decimal point (or comma) for fractions
             }}
           />
           <Button sx={{ mb: 2 }} variant="contained" type="submit" fullWidth>
