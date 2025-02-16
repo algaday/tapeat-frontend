@@ -37,7 +37,7 @@ export type MarinadeCalculatorSchema = z.infer<typeof marinadeCalculatorSchema>;
 const CONTAINER_WEIGHT_KEY = 'CONTAINER_WEIGHT_KEY';
 const MAX_MEAT_MARINADE_ABSORPTION = 0.2; // 20%
 const MARINADE_PERCENTAGE = 0.25; // 25%
-const SPICY_MIX_PERCENTAGE = 0.016; // 1.6%
+const SPICY_MIX_PERCENTAGE = 0.018; // 1.8%
 
 export function MarinadeCalculator() {
   const lastSavedContainerWeight = localStorage.getItem(CONTAINER_WEIGHT_KEY);
