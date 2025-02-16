@@ -106,6 +106,7 @@ export function MarinadeCalculator() {
           <Typography fontWeight="bold" variant="h6" component="h2" sx={{ mb: 2 }}>
             Расчет маринада
           </Typography>
+
           <Divider></Divider>
           <Typography sx={{ color: '#333', mt: 2, fontSize: 17 }}>Вес контейнера (кг)</Typography>
           <RHFInputField
@@ -158,6 +159,9 @@ export function MarinadeCalculator() {
               <Typography fontSize={19}>Вес острых приправ {result.spicyMixWeight}г</Typography>
             </Alert>
           )}
+          <Alert severity="warning" sx={{ mt: 2 }}>
+            <Typography fontSize={19}>На 10л воды 1000г порошка</Typography>
+          </Alert>
         </form>
       </FormProvider>
     </Box>
