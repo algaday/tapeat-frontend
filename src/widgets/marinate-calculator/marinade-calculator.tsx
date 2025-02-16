@@ -35,6 +35,9 @@ export const marinadeCalculatorSchema = z
 export type MarinadeCalculatorSchema = z.infer<typeof marinadeCalculatorSchema>;
 
 const CONTAINER_WEIGHT_KEY = 'CONTAINER_WEIGHT_KEY';
+const MAX_MEAT_MARINADE_ABSORPTION = 0.2; // 20%
+const MARINADE_PERCENTAGE = 0.25; // 25%
+const SPICY_MIX_PERCENTAGE = 0.016; // 1.6%
 
 export function MarinadeCalculator() {
   const lastSavedContainerWeight = localStorage.getItem(CONTAINER_WEIGHT_KEY);
@@ -42,6 +45,7 @@ export function MarinadeCalculator() {
   const [result, setResult] = useState<{
     netMeatWeight: number;
     marinadeWeight: number;
+    spicyMixWeight: number;
   } | null>(null);
   const methods = useForm<MarinadeCalculatorSchema>({
     resolver: zodResolver(marinadeCalculatorSchema),
@@ -65,13 +69,34 @@ export function MarinadeCalculator() {
     const netMeatWeight =
       parseNumericString(data.totalWeight) - parseNumericString(data.containerWeight);
 
-    const marinadeWeight = netMeatWeight / 4;
+    const marinadeWeight = netMeatWeight * MARINADE_PERCENTAGE;
+
+    const spicyMixWeightInGrams = calculateSpicyMixAmountInGrams(netMeatWeight, marinadeWeight);
 
     setResult({
       netMeatWeight: roundTo50Grams(netMeatWeight),
       marinadeWeight: roundTo50Grams(marinadeWeight),
+      spicyMixWeight: spicyMixWeightInGrams,
     });
     localStorage.setItem(CONTAINER_WEIGHT_KEY, data.containerWeight.toString());
+  };
+
+  const calculateSpicyMixAmountInGrams = (netMeatWeight: number, marinadeWeight: number) => {
+    const maxAbsorbedMarinadeWeight = Math.min(
+      marinadeWeight,
+      netMeatWeight * MAX_MEAT_MARINADE_ABSORPTION,
+    );
+
+    console.log(
+      maxAbsorbedMarinadeWeight,
+      marinadeWeight,
+      netMeatWeight * MAX_MEAT_MARINADE_ABSORPTION,
+    );
+    const meatWeightAfterMarinade = netMeatWeight + maxAbsorbedMarinadeWeight;
+
+    const meatWeightAfterMarinadeInGrams = meatWeightAfterMarinade * 1000;
+
+    return Math.round(meatWeightAfterMarinadeInGrams * SPICY_MIX_PERCENTAGE);
   };
 
   return (
@@ -130,6 +155,7 @@ export function MarinadeCalculator() {
             <Alert severity="success">
               <Typography fontSize={19}>Чистый вес мясо {result.netMeatWeight}кг.</Typography>
               <Typography fontSize={19}>Вес маринада {result.marinadeWeight}кг</Typography>
+              <Typography fontSize={19}>Вес острых приправ {result.spicyMixWeight}г</Typography>
             </Alert>
           )}
         </form>
