@@ -17,8 +17,13 @@ import { incrementCompletedFryStationItemQuantity } from '@entities/fry-station-
 import { firebaseDb } from '@shared/lib/firebase';
 import { useAppDispatch, useAppSelector } from '@shared/lib/store';
 
-import { StyledContainer, StyledCard, StyledButton } from './styles';
+import { StyledContainer, StyledCard } from './styles';
 import theme from '@app/providers/theme';
+import { useResetItemsMutation } from '@entities/fry-station-item';
+import { ResetConfirmation } from './reset-confirmation';
+import { useResetItems } from './use-reset-items';
+import { useRevertLastHistory } from './use-revert-last-history';
+import { Undo } from '@mui/icons-material';
 
 const COOKED_RESERVE_QUANTITIES = [2, 4, 6];
 
@@ -30,6 +35,11 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [fryStationItems, setFryStationItems] = useState<FryStationItem[]>([]);
+
+  const { handleCloseDialog, handleConfirmReset, handleOpenDialog, isDialogOpen, isResetLoading } =
+    useResetItems(fryStationId);
+
+  const { revertLastHistory, isRevertPossible } = useRevertLastHistory();
   useEffect(() => {
     setIsLoading(true);
 
@@ -144,14 +154,27 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           color: 'white',
           borderRadius: 1,
           py: 1,
+          px: 2,
         }}
         bgcolor="black"
       >
         <Typography variant="h3">Жарочная станция</Typography>
+        <Box display="flex">
+          <Undo onClick={()=>revertLastHistory()} fontSize="large" sx={{ mr: 2, cursor: 'pointer' }}></Undo>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{ fontSize: 18 }}
+            disabled={isResetLoading}
+            onClick={handleOpenDialog}
+          >
+            Сбросить все заказы
+          </Button>
+        </Box>
       </Box>
       <StyledContainer>
         {fryStationItems.map((item) => {
@@ -164,7 +187,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
           // Current reserve (if current quantity is negative, it means extra stock was made)
           const currentReserve = Math.max(0, -currentQuantity);
 
-          const textColor = getTextColor(currentQuantity, item.maxDropAmount);
+          const textColor = getTextColor(displayQuantity, item.maxDropAmount);
 
           const reserveQuantities = getReserveQuantities(dropAmount, item.maxDropAmount);
 
@@ -223,6 +246,12 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
           );
         })}
       </StyledContainer>
+      <ResetConfirmation
+        isResetLoading={isResetLoading}
+        isOpen={isDialogOpen}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirmReset}
+      />
     </>
   );
 };

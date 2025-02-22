@@ -5,6 +5,8 @@ import {
   CreateFryStationItemResponse,
   GetFryStationItemsRequest,
   GetFryStationItemsResponse,
+  ResetFryStationItemsRequest,
+  ResetFryStationItemsResponse,
 } from './schema';
 
 export const fryStationItemApi = baseV2Api.injectEndpoints({
@@ -23,8 +25,18 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
         }),
         invalidatesTags: [FRY_STATION_ITEMS],
       }),
+
+      resetItems: build.mutation<ResetFryStationItemsResponse, ResetFryStationItemsRequest>({
+        query: ({ fryStationId, ...body }) => ({
+          method: 'POST',
+          url: `fry-stations/${fryStationId}/items/reset`,
+          body,
+        }),
+        invalidatesTags: [FRY_STATION_ITEMS],
+      }),
     };
   },
 });
 
-export const { useCreateMutation, useGetByFryStationIdQuery } = fryStationItemApi;
+export const { useCreateMutation, useGetByFryStationIdQuery, useResetItemsMutation } =
+  fryStationItemApi;

@@ -13,3 +13,6 @@ export type GetFryStationItemsRequest = { fryStationId: string };
 
 export type CreateFryStationItemRequest = z.infer<typeof createFryStationItemSchema>;
 export type CreateFryStationItemResponse = FryStationItem;
+
+export type ResetFryStationItemsResponse = void;
+export type ResetFryStationItemsRequest = { fryStationId: string };

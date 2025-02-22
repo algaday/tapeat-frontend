@@ -31,14 +31,14 @@ export const fryStationMonitoringSlice = createSlice({
       state.completedQuantities[fryStationItemId] += quantityDelta;
     },
     resetCompletedQuantities: (state) => {
-      const historyChange = Object.entries(state.completedQuantities).map(
-        ([fryStationItemId, quantity]) => ({
-          fryStationItemId,
-          quantityDelta: -quantity,
-        }),
-      );
+      // const historyChange = Object.entries(state.completedQuantities).map(
+      //   ([fryStationItemId, quantity]) => ({
+      //     fryStationItemId,
+      //     quantityDelta: -quantity,
+      //   }),
+      // );
 
-      state.completionHistory.push(historyChange);
+      state.completionHistory = []
       state.completedQuantities = {};
     },
     revertLastHistory: (state) => {
@@ -66,4 +66,8 @@ export const fryStationMonitoringReducer = persistReducer(
   fryStationMonitoringSlice.reducer,
 );
 
-export const { incrementCompletedFryStationItemQuantity } = fryStationMonitoringSlice.actions;
+export const {
+  incrementCompletedFryStationItemQuantity,
+  resetCompletedQuantities,
+  revertLastHistory,
+} = fryStationMonitoringSlice.actions;
