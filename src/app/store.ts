@@ -4,13 +4,14 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } fro
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 import { cartSlice } from '@entities/cart';
+import { fryStationMonitoringReducer } from '@entities/fry-station-items-monitoring';
 import { inventoryCountReducer, inventoryCountSlice } from '@entities/inventory-count';
 import { menuSlice } from '@entities/menu-item/menu-item-description';
 import { menuItemsSlice } from '@entities/menu-item/menu-items';
 import { modificationGroupsSlice } from '@entities/modification-group';
 import { restaurantBranchSlice } from '@entities/restaurant-branch';
 import { addAddressListener, userReducer } from '@entities/user';
-import { baseApi, rtkQueryErrorLogger } from '@shared/api';
+import { baseApi, baseV2Api, rtkQueryErrorLogger } from '@shared/api';
 
 const createNoopStorage = () => {
   return {
@@ -42,8 +43,10 @@ const reducers = combineReducers({
   cart: cartSlice.reducer,
   menuItem: menuSlice.reducer,
   menuItems: menuItemsSlice.reducer,
+  fryStationMonitoring: fryStationMonitoringReducer,
   [baseApi.reducerPath]: baseApi.reducer,
   [inventoryCountSlice.name]: inventoryCountReducer,
+  [baseV2Api.reducerPath]: baseV2Api.reducer,
 });
 
 export const store = configureStore({
@@ -53,5 +56,10 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware, rtkQueryErrorLogger, addAddressListener.middleware),
+    }).concat(
+      baseV2Api.middleware,
+      baseApi.middleware,
+      rtkQueryErrorLogger,
+      addAddressListener.middleware,
+    ),
 });

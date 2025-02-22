@@ -1,4 +1,4 @@
-export { baseApi } from './base-api';
+export { baseApi, baseV2Api } from './base-api';
 
 export {
   INVENTORY_COUNT,
@@ -7,6 +7,15 @@ export {
   MODIFICATION_GROUP_TAG,
   RESTAURANT_BRANCH_TAG,
   USER_TAG,
+  FRY_STATION,
+  FRY_STATION_ITEM,
+  FRY_STATION_ITEMS,
+  FRY_STATION_ITEM_MAPPING,
+  FRY_STATION_ITEM_MAPPINGS,
+  MENU_ITEM_V2,
+  MENU_ITEMS_V2,
+  MODIFIER_ITEM_V2,
+  MODIFIER_ITEMS_V2,
 } from './tags';
 
 export type { Image } from './image/types';

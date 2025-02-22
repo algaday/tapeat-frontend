@@ -21,7 +21,7 @@ export function RHFSelect({ name, children, ...other }: Props) {
           {...field}
           select
           fullWidth
-          SelectProps={{ native: false }}
+          SelectProps={{ ...other.SelectProps, native: false }}
           error={!!error}
           helperText={error?.message}
           value={field.value}

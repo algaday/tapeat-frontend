@@ -8,7 +8,7 @@ type IProps = {
 
 type Props = IProps & TextFieldProps;
 
-export function RHFInputField({ name, showErrorMessage, ...other }: Props) {
+export function RHFInputField({ name, showErrorMessage = true, ...other }: Props) {
   const { control } = useFormContext();
 
   return (

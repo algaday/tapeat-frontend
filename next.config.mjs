@@ -2,6 +2,7 @@
 const nextConfig = {
   env: {
     baseApi: process.env.NEXT_PUBLIC_BASE_API,
+    baseV2Api: process.env.NEXT_PUBLIC_BASE_V2_API,
     suggestApiKey: 'f90ce829-0752-47f7-8948-c733ba8a0689',
     geoApiKey: 'd419fb5f-e802-442b-b6fb-050bd0b4a604',
   },
@@ -11,6 +12,10 @@ const nextConfig = {
       {
         source: '/api/:path*',
         destination: `${process.env.NEXT_PUBLIC_BASE_API}/:path*`,
+      },
+      {
+        source: '/api/v2/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BASE_V2_API}/:path*`,
       },
     ];
   },
