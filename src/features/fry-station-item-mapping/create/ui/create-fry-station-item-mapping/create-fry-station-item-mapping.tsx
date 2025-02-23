@@ -22,7 +22,7 @@ export const CreateFryStationItemMapping = () => {
       fryStationItemId,
       ...data,
       quantityMultiplier: Number(data.quantityMultiplier)
-    });
+    }).unwrap();
 
     toast('Успешно привязали позицию на жарочную позицию', { type: 'success' });
     resetForm?.();

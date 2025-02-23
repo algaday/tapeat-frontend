@@ -26,7 +26,7 @@ export const ModifierItemsSelect = ({
         <RHFSelect
           SelectProps={{ multiple: true, renderValue: ()=>renderValue }}
           {...field}
-          label="Категория позиции меню"
+          label="Выберите модификаторы"
         >
           {isLoading ? (
             <MenuItem disabled>Загрузка...</MenuItem>
