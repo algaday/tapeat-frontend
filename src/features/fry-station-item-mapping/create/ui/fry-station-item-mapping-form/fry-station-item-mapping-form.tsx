@@ -66,7 +66,6 @@ export const FryStationItemMappingForm = ({
   //   setResetForm?.(() => methods.reset({ categoryId: categoryId, menuItemId: undefined }));
   // }, [setResetForm, methods.reset, categoryId]);
 
-  console.log(methods.watch());
   const { data: menuItemCategories = [], isLoading: isMenuItemCategoriesLoading } =
     useGetMenuItemCategoriesByRestaurantBranchIdQuery({ restaurantBranchId });
 

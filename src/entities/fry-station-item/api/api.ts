@@ -1,8 +1,12 @@
 import { FRY_STATION_ITEMS, baseV2Api } from '@shared/api';
 
 import {
+  AddFryStationItemSubstitutionRequest,
+  AddFryStationItemSubstitutionResponse,
   CreateFryStationItemRequest,
   CreateFryStationItemResponse,
+  GetFryStationItemByIdRequest,
+  GetFryStationItemByIdResponse,
   GetFryStationItemsRequest,
   GetFryStationItemsResponse,
   ResetFryStationItemsRequest,
@@ -15,6 +19,35 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
       getByFryStationId: build.query<GetFryStationItemsResponse, GetFryStationItemsRequest>({
         query: ({ fryStationId }) => `fry-stations/${fryStationId}/items`,
         providesTags: [FRY_STATION_ITEMS],
+      }),
+
+      getById: build.query<GetFryStationItemByIdResponse, GetFryStationItemByIdRequest>({
+        query: ({ fryStationItemId }) => `fry-station-items/${fryStationItemId}`,
+        providesTags: [FRY_STATION_ITEMS],
+      }),
+
+      createSubstitution: build.mutation<
+        AddFryStationItemSubstitutionResponse,
+        AddFryStationItemSubstitutionRequest
+      >({
+        query: ({ fryStationItemId, ...body }) => ({
+          method: 'POST',
+          url: `fry-station-items/${fryStationItemId}/substitutions`,
+          body,
+        }),
+        invalidatesTags: [FRY_STATION_ITEMS],
+      }),
+
+      updateSubstitution: build.mutation<
+        AddFryStationItemSubstitutionResponse,
+        AddFryStationItemSubstitutionRequest
+      >({
+        query: ({ fryStationItemId, ...body }) => ({
+          method: 'PUT',
+          url: `fry-station-items/${fryStationItemId}/substitutions`,
+          body,
+        }),
+        invalidatesTags: [FRY_STATION_ITEMS],
       }),
 
       create: build.mutation<CreateFryStationItemResponse, CreateFryStationItemRequest>({
@@ -38,5 +71,11 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
   },
 });
 
-export const { useCreateMutation, useGetByFryStationIdQuery, useResetItemsMutation } =
-  fryStationItemApi;
+export const {
+  useCreateMutation,
+  useGetByFryStationIdQuery,
+  useResetItemsMutation,
+  useGetByIdQuery,
+  useCreateSubstitutionMutation,
+  useUpdateSubstitutionMutation,
+} = fryStationItemApi;
