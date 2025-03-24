@@ -6,10 +6,10 @@ import { FormProvider as RHFormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useGetByFryStationItemIdQuery } from '@entities/fry-station-item-mapping';
-import { useGetMenuItemsByRestaurantBranchIdQuery } from '@entities/menu-item-v2';
+import { useGetMenuItemsByMenuIdQuery } from '@entities/menu-item-v2';
 import { InventoryButton } from '@shared/ui/inventory-button';
 
-import { useGetMenuItemCategoriesByRestaurantBranchIdQuery } from '@entities/menu-item-category-v2';
+import { useGetMenuItemCategoriesByMenuIdQuery } from '@entities/menu-item-category-v2';
 import { StackStyle } from './style';
 
 import { MenuItemSelect } from './select-menu-item';
@@ -17,6 +17,8 @@ import { MenuItemCategorySelect } from './select-menu-item-category';
 import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
 import { useGetModifierItemsByMenuItemIdQuery } from '@entities/modifier-item-v2';
 import { ModifierItemsSelect } from './select-modifier-items';
+import { RestaurantBranch } from '@entities/restaurant-branch/api/types';
+import { RestaurantBranchV2 } from '@entities/restaurant-branch-v2';
 
 export const fryStationItemMappingFormSchema = z.object({
   categoryId: z.string().min(1, 'Выберите категорию'),
@@ -43,7 +45,7 @@ type Props = {
   onSubmit: (data: FryStationItemMappingFormSchema) => void;
   setResetForm?: (reset: VoidFunction) => void;
   isLoading?: boolean;
-  restaurantBranchId: string;
+  restaurantBranch: RestaurantBranchV2;
   fryStationItemId: string;
 };
 
@@ -51,7 +53,7 @@ export const FryStationItemMappingForm = ({
   defaultValues = DEFAULT_VALUES,
   onSubmit,
   setResetForm,
-  restaurantBranchId,
+  restaurantBranch,
   isLoading,
   fryStationItemId,
 }: Props) => {
@@ -67,11 +69,11 @@ export const FryStationItemMappingForm = ({
   // }, [setResetForm, methods.reset, categoryId]);
 
   const { data: menuItemCategories = [], isLoading: isMenuItemCategoriesLoading } =
-    useGetMenuItemCategoriesByRestaurantBranchIdQuery({ restaurantBranchId });
+  useGetMenuItemCategoriesByMenuIdQuery({ menuId: restaurantBranch.menuId });
 
   const { data: menuItems = [], isLoading: isMenuItemsLoading } =
-    useGetMenuItemsByRestaurantBranchIdQuery(
-      { restaurantBranchId, categoryId },
+    useGetMenuItemsByMenuIdQuery(
+      { menuId: restaurantBranch.menuId, categoryId },
       { skip: !categoryId },
     );
 

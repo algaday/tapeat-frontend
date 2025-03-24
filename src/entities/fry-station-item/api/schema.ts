@@ -14,8 +14,8 @@ export const addFryStationItemSubstitutionSchema = z.object({
   quantityMultiplier: z.number({ message: 'Выберите сколько штук добавлять' }).positive(),
 });
 
-export type GetFryStationItemsResponse = FryStationItem[];
-export type GetFryStationItemsRequest = { fryStationId: string };
+export type GetAllFryStationItemsResponse = FryStationItem[];
+export type GetAllFryStationItemsRequest = void;
 
 export type CreateFryStationItemRequest = z.infer<typeof createFryStationItemSchema>;
 export type CreateFryStationItemResponse = FryStationItem;

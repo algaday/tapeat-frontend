@@ -1,8 +1,8 @@
 import { MenuItemV2 } from '../model/schema';
 
-export type GetMenuItemsByRestaurantBranchIdResponse = MenuItemV2[];
-export type GetMenuItemsByRestaurantBranchIdRequest = {
-  restaurantBranchId: string;
+export type GetMenuItemsByMenuIdResponse = MenuItemV2[];
+export type GetMenuItemsByMenuIdRequest = {
+  menuId: string;
   excludeIds?: string[];
   categoryId?: string;
 };

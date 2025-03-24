@@ -1,6 +1,6 @@
 export {
   fryStationMonitoringSlice,
-  incrementCompletedFryStationItemQuantity,
+  recordCompletedFryItemQuantityChange,
   resetCompletedQuantities,
   fryStationMonitoringReducer,
 } from './model/slice';

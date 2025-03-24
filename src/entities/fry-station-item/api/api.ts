@@ -5,10 +5,10 @@ import {
   AddFryStationItemSubstitutionResponse,
   CreateFryStationItemRequest,
   CreateFryStationItemResponse,
+  GetAllFryStationItemsRequest,
+  GetAllFryStationItemsResponse,
   GetFryStationItemByIdRequest,
   GetFryStationItemByIdResponse,
-  GetFryStationItemsRequest,
-  GetFryStationItemsResponse,
   ResetFryStationItemsRequest,
   ResetFryStationItemsResponse,
 } from './schema';
@@ -16,12 +16,12 @@ import {
 export const fryStationItemApi = baseV2Api.injectEndpoints({
   endpoints: (build) => {
     return {
-      getByFryStationId: build.query<GetFryStationItemsResponse, GetFryStationItemsRequest>({
-        query: ({ fryStationId }) => `fry-stations/${fryStationId}/items`,
+      getFryStationItems: build.query<GetAllFryStationItemsResponse, GetAllFryStationItemsRequest>({
+        query: () => `fry-station-items`,
         providesTags: [FRY_STATION_ITEMS],
       }),
 
-      getById: build.query<GetFryStationItemByIdResponse, GetFryStationItemByIdRequest>({
+      getFryStationItemById: build.query<GetFryStationItemByIdResponse, GetFryStationItemByIdRequest>({
         query: ({ fryStationItemId }) => `fry-station-items/${fryStationItemId}`,
         providesTags: [FRY_STATION_ITEMS],
       }),
@@ -53,7 +53,7 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
       create: build.mutation<CreateFryStationItemResponse, CreateFryStationItemRequest>({
         query: ({ fryStationId, ...body }) => ({
           method: 'POST',
-          url: `fry-stations/${fryStationId}/items`,
+          url: `fry-station-items`,
           body,
         }),
         invalidatesTags: [FRY_STATION_ITEMS],
@@ -73,9 +73,9 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
 
 export const {
   useCreateMutation,
-  useGetByFryStationIdQuery,
+  useGetFryStationItemsQuery,
   useResetItemsMutation,
-  useGetByIdQuery,
+  useGetFryStationItemByIdQuery,
   useCreateSubstitutionMutation,
   useUpdateSubstitutionMutation,
 } = fryStationItemApi;

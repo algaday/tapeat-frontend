@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 
 import {
   useCreateSubstitutionMutation,
-  useGetByFryStationIdQuery,
-  useGetByIdQuery,
+  useGetFryStationItemsQuery,
+  useGetFryStationItemByIdQuery,
 } from '@entities/fry-station-item';
 
 import {
@@ -19,16 +19,13 @@ export const CreateFryStationItemSubstitution = () => {
 
   const fryStationItemId = params?.fryStationItemId as string;
 
-  const { data: fryStationItem = null, isLoading: isFryStationItemLoading } = useGetByIdQuery({
+  const { data: fryStationItem = null, isLoading: isFryStationItemLoading } = useGetFryStationItemByIdQuery({
     fryStationItemId,
   });
-  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } =
-    useGetByFryStationIdQuery(
-      {
-        fryStationId: fryStationItem?.fryStationId as string,
-      },
-      { skip: !fryStationItem },
-    );
+  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } = useGetFryStationItemsQuery(
+    undefined,
+    { skip: !fryStationItem },
+  );
 
   const [resetForm, setResetForm] = useState<VoidFunction | null>(null);
   const [createSubstitution, { isLoading }] = useCreateSubstitutionMutation();

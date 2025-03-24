@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider as RHFormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FryStationItem, useGetByFryStationIdQuery } from '@entities/fry-station-item';
+import { FryStationItem, useGetFryStationItemsQuery } from '@entities/fry-station-item';
 import { InventoryButton } from '@shared/ui/inventory-button';
 import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
 
@@ -51,8 +51,7 @@ export const FryStationItemSubstitutionForm = ({
     defaultValues,
   });
 
-  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } =
-    useGetByFryStationIdQuery({ fryStationId: fryStationItem.fryStationId as string });
+  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } = useGetFryStationItemsQuery();
 
   const substitutionAllowedItems = fryStationItems.filter((item) => item.id !== fryStationItem.id);
 

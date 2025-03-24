@@ -1,16 +1,15 @@
 export type {
   FryStationItem,
   FryStationItemSubstitution,
-  FryStationItemWithShortSubstitution,
-  ShortFryStationItemSubstitution,
+  FryStationItemQuantity,
 } from './model/schema';
 
 export {
   useCreateMutation,
-  useGetByFryStationIdQuery,
+  useGetFryStationItemByIdQuery,
   useResetItemsMutation,
   useCreateSubstitutionMutation,
-  useGetByIdQuery,
+  useGetFryStationItemsQuery,
   useUpdateSubstitutionMutation,
 } from './api/api';
 export * from './api/schema';

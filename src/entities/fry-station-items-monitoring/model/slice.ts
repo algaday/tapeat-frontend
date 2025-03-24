@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 type FryStationMonitoringState = {
-  completionHistory: { fryStationItemId: string; quantityDelta: number }[][];
+  completionHistory: { fryStationItemId: string; quantityDelta: number; timestamp: string }[][];
   completedQuantities: Record<string, number>;
 };
 
@@ -16,13 +16,20 @@ export const fryStationMonitoringSlice = createSlice({
   name: 'fryStationMonitoring',
   initialState,
   reducers: {
-    incrementCompletedFryStationItemQuantity: (
+    // uses history and can be reverted
+    recordCompletedFryItemQuantityChange: (
       state,
-      action: PayloadAction<{ fryStationItemId: string; quantityDelta: number }>,
+      action: PayloadAction<{
+        fryStationItemId: string;
+        quantityDelta: number;
+        revertable?: boolean;
+      }>,
     ) => {
-      const { fryStationItemId, quantityDelta } = action.payload;
+      const { fryStationItemId, quantityDelta, revertable = true } = action.payload;
 
-      state.completionHistory.push([action.payload]);
+      if (revertable) {
+        state.completionHistory.push([{ ...action.payload, timestamp: new Date().toISOString() }]);
+      }
 
       if (!state.completedQuantities[fryStationItemId]) {
         state.completedQuantities[fryStationItemId] = 0;
@@ -30,15 +37,9 @@ export const fryStationMonitoringSlice = createSlice({
 
       state.completedQuantities[fryStationItemId] += quantityDelta;
     },
-    resetCompletedQuantities: (state) => {
-      // const historyChange = Object.entries(state.completedQuantities).map(
-      //   ([fryStationItemId, quantity]) => ({
-      //     fryStationItemId,
-      //     quantityDelta: -quantity,
-      //   }),
-      // );
 
-      state.completionHistory = []
+    resetCompletedQuantities: (state) => {
+      state.completionHistory = [];
       state.completedQuantities = {};
     },
     revertLastHistory: (state) => {
@@ -67,7 +68,7 @@ export const fryStationMonitoringReducer = persistReducer(
 );
 
 export const {
-  incrementCompletedFryStationItemQuantity,
+  recordCompletedFryItemQuantityChange,
   resetCompletedQuantities,
   revertLastHistory,
 } = fryStationMonitoringSlice.actions;

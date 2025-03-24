@@ -1,17 +1,16 @@
 import { CardContent, Chip, CircularProgress, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-import { useGetByFryStationIdQuery } from '@entities/fry-station-item';
+import { useGetFryStationItemsQuery } from '@entities/fry-station-item';
 
 import { StyledCard, StyledContainer } from './styles';
 
 type Props = {
-  fryStationId: string;
   restaurantBranchId: string;
 };
 
-export const FryStationItemList = ({ fryStationId, restaurantBranchId }: Props) => {
-  const { data: items, isLoading } = useGetByFryStationIdQuery({ fryStationId });
+export const FryStationItemList = ({ restaurantBranchId }: Props) => {
+  const { data: items, isLoading } = useGetFryStationItemsQuery();
   const router = useRouter();
 
   if (isLoading) {

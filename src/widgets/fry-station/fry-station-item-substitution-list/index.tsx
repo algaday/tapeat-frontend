@@ -1,6 +1,6 @@
 import { CardContent, CircularProgress, Typography } from '@mui/material';
 
-import { useGetByIdQuery } from '@entities/fry-station-item';
+import { useGetFryStationItemByIdQuery } from '@entities/fry-station-item';
 import { NavigateToFryStationItemSubstitutionCreate } from '@features/fry-station-item';
 import { NavigateToFryStationItemMappingCreate } from '@features/fry-station-item-mapping';
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const FryStationItemSubstitutionList = ({ fryStationItemId, restaurantBranchId }: Props) => {
-  const { data: fryStationItem, isLoading } = useGetByIdQuery({ fryStationItemId });
+  const { data: fryStationItem, isLoading } = useGetFryStationItemByIdQuery({ fryStationItemId });
 
   if (isLoading) {
     return (
@@ -37,7 +37,7 @@ export const FryStationItemSubstitutionList = ({ fryStationItemId, restaurantBra
   return (
     <StyledContainer>
       <StyledListContainer>
-        {fryStationItem.substitutions.map((substitution) => (
+        {fryStationItem.substitutions?.map((substitution) => (
           <StyledCard key={substitution.substituteItemId}>
             <CardContent>
               <Typography variant="h6">

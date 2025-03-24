@@ -1,19 +1,19 @@
 import { MENU_ITEMS_V2, baseV2Api } from '@shared/api';
 
 import {
-  GetMenuItemCategoriesByRestaurantBranchIdResponse,
-  GetMenuItemCategoriesByRestaurantBranchIdRequest,
+  GetMenuItemCategoriesByMenuIdResponse,
+  GetMenuItemCategoriesByMenuIdRequest,
 } from './schema';
 
 export const menuItemV2Api = baseV2Api.injectEndpoints({
   endpoints: (build) => {
     return {
-      getMenuItemCategoriesByRestaurantBranchId: build.query<
-        GetMenuItemCategoriesByRestaurantBranchIdResponse,
-        GetMenuItemCategoriesByRestaurantBranchIdRequest
+      getMenuItemCategoriesByMenuId: build.query<
+        GetMenuItemCategoriesByMenuIdResponse,
+        GetMenuItemCategoriesByMenuIdRequest
       >({
-        query: ({ restaurantBranchId }) => {
-          return `restaurant-branches/${restaurantBranchId}/menu-item-categories`;
+        query: ({ menuId }) => {
+          return `menu/${menuId}/categories`;
         },
         providesTags: [MENU_ITEMS_V2],
       }),
@@ -21,4 +21,4 @@ export const menuItemV2Api = baseV2Api.injectEndpoints({
   },
 });
 
-export const { useGetMenuItemCategoriesByRestaurantBranchIdQuery } = menuItemV2Api;
+export const { useGetMenuItemCategoriesByMenuIdQuery } = menuItemV2Api;
