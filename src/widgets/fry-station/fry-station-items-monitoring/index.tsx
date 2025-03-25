@@ -8,13 +8,14 @@ import {
   Grid,
   Stack,
   Typography,
-  useTheme,
 } from '@mui/material';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { keyBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+// eslint-disable-next-line boundaries/entry-point, boundaries/element-types
+import theme from '@app/providers/theme';
 import {
   FryStationItem,
   FryStationItemQuantity,
@@ -44,7 +45,6 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
-  const theme = useTheme();
   const { handleCloseDialog, handleConfirmReset, handleOpenDialog, isDialogOpen, isResetLoading } =
     useResetItems(fryStationId);
 
