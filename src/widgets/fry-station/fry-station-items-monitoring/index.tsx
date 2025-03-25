@@ -29,16 +29,15 @@ import { SubstitutionSelect } from './substitution-select';
 import { useResetItems } from './use-reset-items';
 import { useRevertLastHistory } from './use-revert-last-history';
 import { keyBy } from 'lodash';
+import {
+  setSubstituteItemById,
+  SubstitutionItem,
+} from '@entities/fry-station-items-monitoring/model/slice';
 
 const COOKED_RESERVE_QUANTITIES = [2, 4, 6];
 
 type Props = {
   fryStationId: string;
-};
-
-export type SubstitutionItem = {
-  substituteItem: FryStationItem;
-  quantityMultiplier: number;
 };
 
 export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
@@ -53,10 +52,6 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
   >({});
   const { data: fryStationItems = [], isLoading: isFryStationItemsFetching } =
     useGetFryStationItemsQuery();
-
-  const [substitutedItemsById, setSubstitutionsByItemId] = useState<
-    Record<string, SubstitutionItem | null>
-  >({});
 
   const { revertLastHistory } = useRevertLastHistory();
 
@@ -85,9 +80,8 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
     return () => unsubscribe();
   }, []);
 
-  // Get completed quantities from Redux store
-  const completedQuantities = useAppSelector(
-    (state) => state.fryStationMonitoring.completedQuantities,
+  const { completedQuantities, substituteItemsById } = useAppSelector(
+    (state) => state.fryStationMonitoring,
   );
 
   if (isLoading || isFryStationItemsFetching) {
@@ -125,7 +119,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
 
     const remainingQuantity = fryStationItemQuantity - completedQuantity;
 
-    console.log({remainingQuantity, completedQuantity, name: fryStationItem.name})
+    console.log({ remainingQuantity, completedQuantity, name: fryStationItem.name });
     // For 1 fillet we substitute 3 strips. If we have 4 fillets, it is 12 strips.
     // Max drop of strips is 10. then we add 10 strips and current quantity is now, 4 - 10/3 = 0.6666
     // 0.6666 is still 1 fillet
@@ -143,10 +137,12 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
       const alreadyCoveredBySubstitution = fractionalLeftOver * substitution.quantityMultiplier;
 
       // Step 4: Subtract what's already covered
-      const remainingRequiredSubstituteQuantity =
-        totalRequiredSubstituteQuantity - alreadyCoveredBySubstitution;
+      // Fix floating point error like -2.000000000000001
+      const remainingRequiredSubstituteQuantity = Math.round(
+        totalRequiredSubstituteQuantity - alreadyCoveredBySubstitution,
+      );
 
-      requiredDropQuantity = roundAwayFromZero(remainingRequiredSubstituteQuantity);
+      requiredDropQuantity = remainingRequiredSubstituteQuantity;
     }
 
     const preferredDropAmount = requiredDropQuantity;
@@ -174,8 +170,9 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
     };
   };
 
-  const removeCurrentReserve = (
+  const disposeCurrentReserve = (
     fryStationItem: FryStationItem,
+    substituteItemId: string | null,
   ) => {
     const completedQuantity = completedQuantities[fryStationItem.id] || 0;
     const requiredQuantity = fryStationItemQuantities[fryStationItem.id]?.quantity || 0;
@@ -189,6 +186,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
         recordCompletedFryItemQuantityChange({
           fryStationItemId: fryStationItem.id,
           quantityDelta: -currentReserve, // remove exact excess
+          substituteItemId,
         }),
       );
     }
@@ -210,32 +208,35 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
 
   const onSubstitutionChange = (
     fryStationItem: FryStationItem,
-    substitution: SubstitutionItem | null,
+    newSubstitution: SubstitutionItem | null,
   ) => {
+    const substitutionBeforeChange = substituteItemsById[fryStationItem.id];
     // if substitution is turned off, remove reserve
-    if (!substitution) {
-      removeCurrentReserve(fryStationItem);
+    if (!newSubstitution && substitutionBeforeChange) {
+      // dispose reserve
+      disposeCurrentReserve(fryStationItem, substitutionBeforeChange.substituteItem.id);
     }
 
-    setSubstitutionsByItemId({
-      ...substitutedItemsById,
-      [fryStationItem.id]: substitution,
-    });
+    dispatch(
+      setSubstituteItemById({
+        fryStationItemId: fryStationItem.id,
+        newSubstitution,
+      }),
+    );
   };
 
   const dropItemToFryer = (
     fryStationItemId: string,
     quantity: number,
-    substitutedItemQuantityMultiplier: number | null,
+    substituteItem: SubstitutionItem | null,
   ) => {
-    const quantityDelta = substitutedItemQuantityMultiplier
-      ? quantity / substitutedItemQuantityMultiplier
-      : quantity;
+    const quantityDelta = substituteItem ? quantity / substituteItem.quantityMultiplier : quantity;
 
     dispatch(
       recordCompletedFryItemQuantityChange({
         fryStationItemId,
         quantityDelta,
+        substituteItemId: substituteItem?.substituteItem.id,
       }),
     );
   };
@@ -299,7 +300,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
       </Box>
       <StyledContainer>
         {fryStationItems.map((item) => {
-          const currentSubstitute = substitutedItemsById[item.id];
+          const currentSubstitute = substituteItemsById[item.id];
 
           const { dropAmount, requiredDropQuantity, maxDropAmount, currentReserve } =
             calculateDropAmount(item, currentSubstitute);
@@ -352,10 +353,27 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
                     </Grid>
                     <Divider orientation="vertical" flexItem sx={{ mr: '-1px' }} />
                     <Grid item xs={6} padding={2}>
-                      <Typography sx={{ fontSize: 18 }}>Нужно положить</Typography>
+                      <Typography sx={{ fontSize: 20 }}>Нужно положить</Typography>
                       <Typography variant="h4">{dropAmount}</Typography>
-                      <Typography sx={{ fontSize: 18 }}>В запасе </Typography>
-                      <Typography variant="h4">{currentReserve}</Typography>
+                      <Typography sx={{ fontSize: 20 }}>В запасе </Typography>
+                      <Box display="flex">
+                        <Typography sx={{ mr: 1 }} variant="h4">
+                          {currentReserve}
+                        </Typography>
+                        {currentReserve > 0 && (
+                          <Button
+                            color="error"
+                            onClick={() =>
+                              disposeCurrentReserve(
+                                item,
+                                currentSubstitute?.substituteItem.id || null,
+                              )
+                            }
+                          >
+                            Удалить запасы
+                          </Button>
+                        )}
+                      </Box>
                     </Grid>
                   </Grid>
 
@@ -363,14 +381,8 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
                     <Button
                       variant="contained"
                       fullWidth
-                      sx={{ py: 1, fontSize: 18, mt: 2 }}
-                      onClick={() =>
-                        dropItemToFryer(
-                          item.id,
-                          dropAmount,
-                          currentSubstitute?.quantityMultiplier || null,
-                        )
-                      }
+                      sx={{ py: 1, fontSize: 18, mt: 2, height: '66px' }}
+                      onClick={() => dropItemToFryer(item.id, dropAmount, currentSubstitute)}
                       disabled={requiredDropQuantity < 1}
                     >
                       Приготовить {dropAmount} шт
@@ -381,11 +393,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
                         variant="outlined"
                         sx={{ py: 1, fontSize: 16, lineHeight: 1.5, mt: 2, ml: 0.5 }}
                         onClick={() =>
-                          dropItemToFryer(
-                            item.id,
-                            dropAmount + reserve,
-                            currentSubstitute?.quantityMultiplier || null,
-                          )
+                          dropItemToFryer(item.id, dropAmount + reserve, currentSubstitute)
                         }
                         color={reserve >= COOKED_RESERVE_QUANTITIES[1] ? 'error' : undefined}
                       >

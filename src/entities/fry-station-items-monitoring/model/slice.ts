@@ -1,15 +1,34 @@
+import { FryStationItem } from '@entities/fry-station-item';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+enum FryItemHistoryType {
+  ADDITION = 'addition', // when food is cooked or counted in
+  DISPOSAL = 'disposal', // thrown away
+}
+
+export type SubstitutionItem = {
+  substituteItem: FryStationItem;
+  quantityMultiplier: number;
+};
+
 type FryStationMonitoringState = {
-  completionHistory: { fryStationItemId: string; quantityDelta: number; timestamp: string }[][];
+  completionHistory: {
+    fryStationItemId: string;
+    quantityDelta: number;
+    timestamp: string;
+    substituteItemId: string | null;
+    type: FryItemHistoryType;
+  }[][];
   completedQuantities: Record<string, number>;
+  substituteItemsById: Record<string, SubstitutionItem | null>;
 };
 
 const initialState: FryStationMonitoringState = {
   completionHistory: [],
   completedQuantities: {},
+  substituteItemsById: {},
 };
 
 export const fryStationMonitoringSlice = createSlice({
@@ -22,13 +41,26 @@ export const fryStationMonitoringSlice = createSlice({
       action: PayloadAction<{
         fryStationItemId: string;
         quantityDelta: number;
-        revertable?: boolean;
+        revertible?: boolean;
+        substituteItemId?: string | null;
       }>,
     ) => {
-      const { fryStationItemId, quantityDelta, revertable = true } = action.payload;
+      const {
+        fryStationItemId,
+        quantityDelta,
+        revertible = true,
+        substituteItemId = null,
+      } = action.payload;
 
-      if (revertable) {
-        state.completionHistory.push([{ ...action.payload, timestamp: new Date().toISOString() }]);
+      if (revertible) {
+        state.completionHistory.push([
+          {
+            ...action.payload,
+            timestamp: new Date().toISOString(),
+            substituteItemId,
+            type: quantityDelta < 0 ? FryItemHistoryType.DISPOSAL : FryItemHistoryType.ADDITION,
+          },
+        ]);
       }
 
       if (!state.completedQuantities[fryStationItemId]) {
@@ -42,6 +74,7 @@ export const fryStationMonitoringSlice = createSlice({
       state.completionHistory = [];
       state.completedQuantities = {};
     },
+
     revertLastHistory: (state) => {
       const lastHistoryChange = state.completionHistory.pop();
 
@@ -55,6 +88,16 @@ export const fryStationMonitoringSlice = createSlice({
         });
       }
     },
+
+    setSubstituteItemById: (
+      state,
+      action: PayloadAction<{
+        fryStationItemId: string;
+        newSubstitution: SubstitutionItem | null;
+      }>,
+    ) => {
+      state.substituteItemsById[action.payload.fryStationItemId] = action.payload.newSubstitution;
+    },
   },
 });
 
@@ -62,13 +105,10 @@ export const fryStationMonitoringReducer = persistReducer(
   {
     key: 'rtk:fryStationMonitoring',
     storage,
-    whitelist: ['completionHistory', 'completedQuantities'],
+    whitelist: ['completionHistory', 'completedQuantities', 'substituteItemsById'],
   },
   fryStationMonitoringSlice.reducer,
 );
 
-export const {
-  recordCompletedFryItemQuantityChange,
-  resetCompletedQuantities,
-  revertLastHistory,
-} = fryStationMonitoringSlice.actions;
+export const { recordCompletedFryItemQuantityChange, resetCompletedQuantities, revertLastHistory, setSubstituteItemById } =
+  fryStationMonitoringSlice.actions;

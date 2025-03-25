@@ -5,18 +5,16 @@ import * as React from 'react';
 
 import {
   FryStationItem,
-  FryStationItemSubstitution,
-  FryStationItemWithShortSubstitution,
 } from '@entities/fry-station-item';
 import { keyBy } from 'lodash';
 import { useMemo } from 'react';
-import { SubstitutionItem } from '.';
+import { SubstitutionItem } from '@entities/fry-station-items-monitoring/model/slice';
 
 type Props = {
-  fryStationItem: FryStationItemWithShortSubstitution;
+  fryStationItem: FryStationItem;
   onChange: (substituteItem: SubstitutionItem | null) => void;
   substitutedItemId: string | null;
-  fryStationItems: FryStationItemWithShortSubstitution[];
+  fryStationItems: FryStationItem[];
 };
 
 export function SubstitutionSelect({
@@ -53,12 +51,12 @@ export function SubstitutionSelect({
   return (
     <div>
       {!substitutedItemId && (
-        <Button color="error" variant="contained" onClick={handleOpenMenu}>
+        <Button color="warning" variant="contained" onClick={handleOpenMenu}>
           Включить замену
         </Button>
       )}
       {substitutedItemId && (
-        <Button color="success" variant="contained" onClick={handleResetSelect}>
+        <Button variant="contained" color="info" onClick={handleResetSelect}>
           Отключить замену
         </Button>
       )}
