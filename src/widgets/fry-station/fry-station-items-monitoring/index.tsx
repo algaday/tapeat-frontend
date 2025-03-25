@@ -8,18 +8,23 @@ import {
   Grid,
   Stack,
   Typography,
+  useTheme,
 } from '@mui/material';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { keyBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import theme from '@app/providers/theme';
 import {
   FryStationItem,
   FryStationItemQuantity,
   useGetFryStationItemsQuery,
 } from '@entities/fry-station-item';
-import { recordCompletedFryItemQuantityChange } from '@entities/fry-station-items-monitoring';
+import {
+  recordCompletedFryItemQuantityChange,
+  setSubstituteItemById,
+  SubstitutionItem,
+} from '@entities/fry-station-items-monitoring';
 import { firebaseDb } from '@shared/lib/firebase';
 import { useAppDispatch, useAppSelector } from '@shared/lib/store';
 
@@ -28,11 +33,6 @@ import { StyledContainer, StyledCard } from './styles';
 import { SubstitutionSelect } from './substitution-select';
 import { useResetItems } from './use-reset-items';
 import { useRevertLastHistory } from './use-revert-last-history';
-import { keyBy } from 'lodash';
-import {
-  setSubstituteItemById,
-  SubstitutionItem,
-} from '@entities/fry-station-items-monitoring/model/slice';
 
 const COOKED_RESERVE_QUANTITIES = [2, 4, 6];
 
@@ -44,6 +44,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
+  const theme = useTheme();
   const { handleCloseDialog, handleConfirmReset, handleOpenDialog, isDialogOpen, isResetLoading } =
     useResetItems(fryStationId);
 
@@ -104,10 +105,6 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
     const absFraction = Math.abs(quantity % 1);
     return absFraction === 1 ? 0 : absFraction;
   };
-
-  function roundAwayFromZero(value: number): number {
-    return value > 0 ? Math.ceil(value) : Math.floor(value);
-  }
 
   const calculateDropAmount = (
     fryStationItem: FryStationItem,

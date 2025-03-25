@@ -19,13 +19,12 @@ export const CreateFryStationItemSubstitution = () => {
 
   const fryStationItemId = params?.fryStationItemId as string;
 
-  const { data: fryStationItem = null, isLoading: isFryStationItemLoading } = useGetFryStationItemByIdQuery({
-    fryStationItemId,
-  });
-  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } = useGetFryStationItemsQuery(
-    undefined,
-    { skip: !fryStationItem },
-  );
+  const { data: fryStationItem = null, isLoading: isFryStationItemLoading } =
+    useGetFryStationItemByIdQuery({
+      fryStationItemId,
+    });
+  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } =
+    useGetFryStationItemsQuery(undefined, { skip: !fryStationItem });
 
   const [resetForm, setResetForm] = useState<VoidFunction | null>(null);
   const [createSubstitution, { isLoading }] = useCreateSubstitutionMutation();

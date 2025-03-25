@@ -51,7 +51,8 @@ export const FryStationItemSubstitutionForm = ({
     defaultValues,
   });
 
-  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } = useGetFryStationItemsQuery();
+  const { data: fryStationItems = [], isLoading: isFryStationItemsLoading } =
+    useGetFryStationItemsQuery();
 
   const substitutionAllowedItems = fryStationItems.filter((item) => item.id !== fryStationItem.id);
 

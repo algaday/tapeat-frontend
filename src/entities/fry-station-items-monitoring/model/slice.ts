@@ -1,7 +1,9 @@
-import { FryStationItem } from '@entities/fry-station-item';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
+// eslint-disable-next-line boundaries/element-types
+import { FryStationItem } from '@entities/fry-station-item';
 
 enum FryItemHistoryType {
   ADDITION = 'addition', // when food is cooked or counted in
@@ -110,5 +112,9 @@ export const fryStationMonitoringReducer = persistReducer(
   fryStationMonitoringSlice.reducer,
 );
 
-export const { recordCompletedFryItemQuantityChange, resetCompletedQuantities, revertLastHistory, setSubstituteItemById } =
-  fryStationMonitoringSlice.actions;
+export const {
+  recordCompletedFryItemQuantityChange,
+  resetCompletedQuantities,
+  revertLastHistory,
+  setSubstituteItemById,
+} = fryStationMonitoringSlice.actions;

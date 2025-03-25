@@ -1,14 +1,12 @@
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import * as React from 'react';
-
-import {
-  FryStationItem,
-} from '@entities/fry-station-item';
 import { keyBy } from 'lodash';
+import * as React from 'react';
 import { useMemo } from 'react';
-import { SubstitutionItem } from '@entities/fry-station-items-monitoring/model/slice';
+
+import { FryStationItem } from '@entities/fry-station-item';
+import { SubstitutionItem } from '@entities/fry-station-items-monitoring';
 
 type Props = {
   fryStationItem: FryStationItem;

@@ -11,7 +11,7 @@ type Props = {
   isOpen: boolean;
   onClose: VoidFunction;
   onConfirm: VoidFunction;
-  isResetLoading: boolean
+  isResetLoading: boolean;
 };
 
 export const ResetConfirmation = ({ isOpen, onClose, onConfirm, isResetLoading }: Props) => {

@@ -21,7 +21,10 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
         providesTags: [FRY_STATION_ITEMS],
       }),
 
-      getFryStationItemById: build.query<GetFryStationItemByIdResponse, GetFryStationItemByIdRequest>({
+      getFryStationItemById: build.query<
+        GetFryStationItemByIdResponse,
+        GetFryStationItemByIdRequest
+      >({
         query: ({ fryStationItemId }) => `fry-station-items/${fryStationItemId}`,
         providesTags: [FRY_STATION_ITEMS],
       }),
@@ -51,7 +54,7 @@ export const fryStationItemApi = baseV2Api.injectEndpoints({
       }),
 
       create: build.mutation<CreateFryStationItemResponse, CreateFryStationItemRequest>({
-        query: ({ fryStationId, ...body }) => ({
+        query: (body) => ({
           method: 'POST',
           url: `fry-station-items`,
           body,

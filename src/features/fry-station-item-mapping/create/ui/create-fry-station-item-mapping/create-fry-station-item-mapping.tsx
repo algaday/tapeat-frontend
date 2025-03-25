@@ -1,24 +1,25 @@
+import { Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useCreateFryStationItemMappingMutation } from '@entities/fry-station-item-mapping';
+import { useGetRestaurantBranchByIdQuery } from '@entities/restaurant-branch-v2';
 
 import {
   FryStationItemMappingForm,
   FryStationItemMappingFormSchema,
 } from '../fry-station-item-mapping-form/fry-station-item-mapping-form';
-import { useGetRestaurantBranchByIdQuery } from '@entities/restaurant-branch-v2';
-import { Typography } from '@mui/material';
 
 export const CreateFryStationItemMapping = () => {
   const params = useParams<{ fryStationItemId: string; restaurantBranchId: string }>();
   const restaurantBranchId = params?.restaurantBranchId as string;
   const fryStationItemId = params?.fryStationItemId as string;
 
-  const { data: restaurantBranch = null, isLoading: isRestaurantBranchFetching } = useGetRestaurantBranchByIdQuery({
-    restaurantBranchId,
-  });
+  const { data: restaurantBranch = null, isLoading: isRestaurantBranchFetching } =
+    useGetRestaurantBranchByIdQuery({
+      restaurantBranchId,
+    });
 
   const [resetForm, setResetForm] = useState<VoidFunction | null>(null);
   const [createMapping, { isLoading }] = useCreateFryStationItemMappingMutation();

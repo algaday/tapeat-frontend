@@ -2,7 +2,6 @@ import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
 
 import { useGetByRestaurantBranchIdQuery } from '@entities/fry-station';
-import { GoBackSubheader } from '@shared/ui/go-back-subheader';
 import { FryStationItemMonitoring } from '@widgets/fry-station';
 
 import { StyledContainer } from '../fry-station-item-list/styles';

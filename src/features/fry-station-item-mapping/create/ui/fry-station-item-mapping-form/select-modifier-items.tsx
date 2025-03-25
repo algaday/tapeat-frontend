@@ -1,8 +1,8 @@
 import { Checkbox, ListItemText, MenuItem } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 
-import { RHFSelect } from '@shared/ui/rhf/RHFSelect';
 import { ModifierItemV2 } from '@entities/modifier-item-v2';
+import { RHFSelect } from '@shared/ui/rhf/RHFSelect';
 
 interface Props {
   modifierItems: ModifierItemV2[];
@@ -17,14 +17,16 @@ export const ModifierItemsSelect = ({
 }: Props) => {
   const { control } = useFormContext();
 
-  const renderValue = selectedModifierItemIds.map(selectedId=>modifierItems.find(item=>item.id === selectedId)?.name).join(', ')
+  const renderValue = selectedModifierItemIds
+    .map((selectedId) => modifierItems.find((item) => item.id === selectedId)?.name)
+    .join(', ');
   return (
     <Controller
       control={control}
       name="modifierItemIds"
       render={({ field }) => (
         <RHFSelect
-          SelectProps={{ multiple: true, renderValue: ()=>renderValue }}
+          SelectProps={{ multiple: true, renderValue: () => renderValue }}
           {...field}
           label="Выберите модификаторы"
         >

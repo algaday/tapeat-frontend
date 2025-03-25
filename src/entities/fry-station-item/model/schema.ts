@@ -1,4 +1,4 @@
-import { string, z } from 'zod';
+import { z } from 'zod';
 
 const fryStationItemSubstitution = z.object({
   substituteItemId: z.string(),
@@ -19,7 +19,7 @@ const fryStationItemQuantity = z.object({
   fryStationId: z.string(),
   fryStationItemId: z.string(),
   quantity: z.number(),
-})
+});
 
 export type FryStationItem = z.infer<typeof fryStationItem>;
 export type FryStationItemSubstitution = z.infer<typeof fryStationItemSubstitution>;

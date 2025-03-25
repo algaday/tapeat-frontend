@@ -43,7 +43,7 @@ export const baseV2Api = createApi({
     MENU_ITEM_V2,
     MENU_ITEMS_V2,
     MODIFIER_ITEM_V2,
-    MODIFIER_ITEMS_V2
+    MODIFIER_ITEMS_V2,
   ],
   reducerPath: 'api/v2',
   baseQuery: baseV2Query,

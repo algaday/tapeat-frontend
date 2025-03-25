@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { FryStationItem } from '../model/schema';
 
 export const createFryStationItemSchema = z.object({
-  fryStationId: z.string().min(1, { message: 'Выберите fry station' }),
   name: z.string().min(1, { message: 'Выберите название' }),
   maxDropAmount: z.string().min(1, { message: 'Введите максимум количество для жарки' }),
 });

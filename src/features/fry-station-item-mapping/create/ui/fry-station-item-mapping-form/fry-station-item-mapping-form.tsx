@@ -1,24 +1,22 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
 import { FormProvider as RHFormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useGetByFryStationItemIdQuery } from '@entities/fry-station-item-mapping';
-import { useGetMenuItemsByMenuIdQuery } from '@entities/menu-item-v2';
-import { InventoryButton } from '@shared/ui/inventory-button';
-
 import { useGetMenuItemCategoriesByMenuIdQuery } from '@entities/menu-item-category-v2';
+import { useGetMenuItemsByMenuIdQuery } from '@entities/menu-item-v2';
+import { useGetModifierItemsByMenuItemIdQuery } from '@entities/modifier-item-v2';
+import { RestaurantBranchV2 } from '@entities/restaurant-branch-v2';
+import { InventoryButton } from '@shared/ui/inventory-button';
+import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
+
 import { StackStyle } from './style';
 
 import { MenuItemSelect } from './select-menu-item';
 import { MenuItemCategorySelect } from './select-menu-item-category';
-import { RHFInputField } from '@shared/ui/rhf/rhf-input-field';
-import { useGetModifierItemsByMenuItemIdQuery } from '@entities/modifier-item-v2';
 import { ModifierItemsSelect } from './select-modifier-items';
-import { RestaurantBranch } from '@entities/restaurant-branch/api/types';
-import { RestaurantBranchV2 } from '@entities/restaurant-branch-v2';
 
 export const fryStationItemMappingFormSchema = z.object({
   categoryId: z.string().min(1, 'Выберите категорию'),
@@ -37,7 +35,7 @@ export type FryStationItemMappingFormSchema = z.infer<typeof fryStationItemMappi
 
 export const DEFAULT_VALUES: Partial<FryStationItemMappingFormSchema> = {
   quantityMultiplier: '1',
-  modifierItemIds: []
+  modifierItemIds: [],
 };
 
 type Props = {
@@ -52,7 +50,6 @@ type Props = {
 export const FryStationItemMappingForm = ({
   defaultValues = DEFAULT_VALUES,
   onSubmit,
-  setResetForm,
   restaurantBranch,
   isLoading,
   fryStationItemId,
@@ -69,24 +66,24 @@ export const FryStationItemMappingForm = ({
   // }, [setResetForm, methods.reset, categoryId]);
 
   const { data: menuItemCategories = [], isLoading: isMenuItemCategoriesLoading } =
-  useGetMenuItemCategoriesByMenuIdQuery({ menuId: restaurantBranch.menuId });
+    useGetMenuItemCategoriesByMenuIdQuery({ menuId: restaurantBranch.menuId });
 
-  const { data: menuItems = [], isLoading: isMenuItemsLoading } =
-    useGetMenuItemsByMenuIdQuery(
-      { menuId: restaurantBranch.menuId, categoryId },
-      { skip: !categoryId },
-    );
+  const { data: menuItems = [], isLoading: isMenuItemsLoading } = useGetMenuItemsByMenuIdQuery(
+    { menuId: restaurantBranch.menuId, categoryId },
+    { skip: !categoryId },
+  );
 
   const { data: existingMappings = [] } = useGetByFryStationItemIdQuery({
     fryStationItemId,
   });
 
-  const { data: modifierItems = [], isLoading: isModifierItemsLoading } = useGetModifierItemsByMenuItemIdQuery(
-    {
-      menuItemId,
-    },
-    { skip: !menuItemId },
-  );
+  const { data: modifierItems = [], isLoading: isModifierItemsLoading } =
+    useGetModifierItemsByMenuItemIdQuery(
+      {
+        menuItemId,
+      },
+      { skip: !menuItemId },
+    );
 
   const mappedMenuItemIds = existingMappings.map((mapping) => mapping.menuItem.id);
 
@@ -118,7 +115,11 @@ export const FryStationItemMappingForm = ({
           )}
 
           {menuItemId && (
-            <ModifierItemsSelect modifierItems={modifierItems} isLoading={isModifierItemsLoading} selectedModifierItemIds={modifierItemIds}/>
+            <ModifierItemsSelect
+              modifierItems={modifierItems}
+              isLoading={isModifierItemsLoading}
+              selectedModifierItemIds={modifierItemIds}
+            />
           )}
 
           <InventoryButton type="submit" variant="contained" disabled={isLoading}>

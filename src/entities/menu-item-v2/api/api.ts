@@ -1,17 +1,11 @@
 import { MENU_ITEMS_V2, baseV2Api } from '@shared/api';
 
-import {
-  GetMenuItemsByMenuIdResponse,
-  GetMenuItemsByMenuIdRequest,
-} from './schema';
+import { GetMenuItemsByMenuIdResponse, GetMenuItemsByMenuIdRequest } from './schema';
 
 export const menuItemV2Api = baseV2Api.injectEndpoints({
   endpoints: (build) => {
     return {
-      getMenuItemsByMenuId: build.query<
-        GetMenuItemsByMenuIdResponse,
-        GetMenuItemsByMenuIdRequest
-      >({
+      getMenuItemsByMenuId: build.query<GetMenuItemsByMenuIdResponse, GetMenuItemsByMenuIdRequest>({
         query: ({ menuId, excludeIds = [], categoryId }) => {
           const params = new URLSearchParams();
           // Append each excludeId separately to match `excludeIds[]=id1&excludeIds[]=id2`

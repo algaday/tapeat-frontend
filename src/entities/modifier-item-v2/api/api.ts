@@ -1,9 +1,6 @@
 import { MENU_ITEMS_V2, baseV2Api } from '@shared/api';
 
-import {
-  GetModifierItemByMenuItemIdResponse,
-  GetModifierItemByMenuItemIdRequest,
-} from './schema';
+import { GetModifierItemByMenuItemIdResponse, GetModifierItemByMenuItemIdRequest } from './schema';
 
 export const modifierItemV2Api = baseV2Api.injectEndpoints({
   endpoints: (build) => {
