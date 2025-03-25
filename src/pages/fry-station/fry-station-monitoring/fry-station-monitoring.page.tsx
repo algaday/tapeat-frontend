@@ -2,6 +2,7 @@ import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
 
 import { useGetByRestaurantBranchIdQuery } from '@entities/fry-station';
+import { useGetRestaurantBranchByIdQuery } from '@entities/restaurant-branch-v2';
 import { FryStationItemMonitoring } from '@widgets/fry-station';
 
 import { StyledContainer } from '../fry-station-item-list/styles';
@@ -17,7 +18,12 @@ export function FryStationMonitoringPage() {
     restaurantBranchId,
   });
 
-  if (isLoading) {
+  const { data: restaurantBranch, isLoading: isRestaurantBranchFetching } =
+    useGetRestaurantBranchByIdQuery({
+      restaurantBranchId,
+    });
+
+  if (isLoading || isRestaurantBranchFetching) {
     return (
       <StyledContainer>
         <CircularProgress />
@@ -25,7 +31,7 @@ export function FryStationMonitoringPage() {
     );
   }
 
-  if (!fryStation) {
+  if (!fryStation || !restaurantBranch) {
     return (
       <StyledContainer>
         <Alert severity="error">
@@ -37,7 +43,7 @@ export function FryStationMonitoringPage() {
 
   return (
     <Box padding={2}>
-      <FryStationItemMonitoring fryStationId={fryStation.id} />
+      <FryStationItemMonitoring fryStationId={fryStation.id} restaurantBranch={restaurantBranch} />
     </Box>
   );
 }

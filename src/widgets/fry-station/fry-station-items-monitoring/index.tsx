@@ -26,6 +26,7 @@ import {
   setSubstituteItemById,
   SubstitutionItem,
 } from '@entities/fry-station-items-monitoring';
+import { RestaurantBranchV2 } from '@entities/restaurant-branch-v2';
 import { firebaseDb } from '@shared/lib/firebase';
 import { useAppDispatch, useAppSelector } from '@shared/lib/store';
 
@@ -39,9 +40,10 @@ const COOKED_RESERVE_QUANTITIES = [2, 4, 6];
 
 type Props = {
   fryStationId: string;
+  restaurantBranch: RestaurantBranchV2;
 };
 
-export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
+export const FryStationItemMonitoring = ({ fryStationId, restaurantBranch }: Props) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -277,7 +279,7 @@ export const FryStationItemMonitoring = ({ fryStationId }: Props) => {
         }}
         bgcolor="black"
       >
-        <Typography variant="h3">Жарочная станция</Typography>
+        <Typography variant="h3">Жарочная станция {restaurantBranch.name}</Typography>
         <Box display="flex">
           <Undo
             onClick={() => revertLastHistory()}
