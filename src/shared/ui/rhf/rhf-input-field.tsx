@@ -1,37 +1,30 @@
-import { useFormContext } from "react-hook-form"
+import { TextField, TextFieldProps } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { TextField, TextFieldProps } from "@mui/material"
-import get from "lodash/get"
+type IProps = {
+  name: string;
+  showErrorMessage?: boolean;
+};
 
-type Props = TextFieldProps & {
-	name: string
-	showErrorMessage?: boolean
-}
+type Props = IProps & TextFieldProps;
 
-export function RHFInputField(props: Props) {
-	const { name, showErrorMessage = true } = props
-	const {
-		register,
-		formState: { errors },
-		watch
-	} = useFormContext()
+export function RHFInputField({ name, showErrorMessage = true, ...other }: Props) {
+  const { control } = useFormContext();
 
-	const error = get(errors, name)
-
-	const errorText = error?.message as string
-
-	const value = watch(name)
-
-	return (
-		<TextField
-			{...props}
-			{...register(name, { valueAsNumber: props.type === "number" })}
-			error={!!error}
-			helperText={showErrorMessage && errorText}
-			InputLabelProps={{
-				...props.InputLabelProps,
-				shrink: value !== undefined && value !== null, // Forces label to shrink when error occurs
-			}}
-		/>
-	)
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: { error } }) => (
+        <TextField
+          {...field}
+          fullWidth
+          value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
+          error={!!error}
+          helperText={error && showErrorMessage ? error.message : ' '}
+          {...other}
+        />
+      )}
+    />
+  );
 }

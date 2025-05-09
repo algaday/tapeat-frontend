@@ -1,75 +1,75 @@
 export type GeocodeResponse = {
-	response: {
-		GeoObjectCollection: {
-			featureMember: FeatureMember[]
+  response: {
+    GeoObjectCollection: {
+      featureMember: FeatureMember[];
 
-			metaDataProperty: {
-				GeocoderResponseMetaData: {
-					found: string
-					request: string
-					results: string
+      metaDataProperty: {
+        GeocoderResponseMetaData: {
+          found: string;
+          request: string;
+          results: string;
 
-					Point: {
-						pos: string
-					}
+          Point: {
+            pos: string;
+          };
 
-					boundedBy: {
-						Envelope: {
-							lowerCorner: string
-							upperCorner: string
-						}
-					}
-				}
-			}
-		}
-	}
-}
+          boundedBy: {
+            Envelope: {
+              lowerCorner: string;
+              upperCorner: string;
+            };
+          };
+        };
+      };
+    };
+  };
+};
 
 export type SuggestApiResponse = {
-	suggest_reqid: string
+  suggest_reqid: string;
 
-	results: Suggestion[]
-}
+  results: Suggestion[];
+};
 
 type FeatureMember = {
-	GeoObject: {
-		Point: {
-			pos: string
-		}
-		boundedBy: {
-			Envelope: {
-				lowerCorner: string
-				upperCorner: string
-			}
-		}
-		description: string
-		name: string
-		uri: string
+  GeoObject: {
+    Point: {
+      pos: string;
+    };
+    boundedBy: {
+      Envelope: {
+        lowerCorner: string;
+        upperCorner: string;
+      };
+    };
+    description: string;
+    name: string;
+    uri: string;
 
-		metaDataProperty: {
-			GeocoderMetaData: {
-				text: string
-				precision: string
-				kind: string
-			}
-		}
-	}
-}
+    metaDataProperty: {
+      GeocoderMetaData: {
+        text: string;
+        precision: string;
+        kind: string;
+      };
+    };
+  };
+};
 
 export type Suggestion = {
-	uri: string
-	tags: string[]
+  uri: string;
+  tags: string[];
 
-	title: {
-		text: string
-	}
+  title: {
+    text: string;
+  };
 
-	subtitle: {
-		text: string
-	}
+  subtitle: {
+    text: string;
+  };
 
-	distance: {
-		value: number
-		text: string
-	}
-}
+  distance: {
+    value: number;
+    text: string;
+  };
+};

@@ -1,1 +1,1 @@
-export { AddMenuToCart } from "./add-menu-to-cart"
+export { AddMenuToCart } from './add-menu-to-cart';

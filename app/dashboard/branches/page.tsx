@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import { RestaurantBranchPage } from "@/pages/restaurant-branch/ui"
+import { RestaurantBranchPage } from '@/pages/restaurant-branch/ui';
 
 export default function Branches() {
-	return (
-		<>
-			<RestaurantBranchPage />
-		</>
-	)
+  return (
+    <>
+      <RestaurantBranchPage />
+    </>
+  );
 }

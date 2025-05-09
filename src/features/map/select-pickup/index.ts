@@ -1,1 +1,1 @@
-export { SelectPickup } from "./ui/select-pickup"
+export { SelectPickup } from './ui/select-pickup';

@@ -1,1 +1,1 @@
-export { MenuItemCard } from "./menu-item-card"
+export { MenuItemCard } from './menu-item-card';

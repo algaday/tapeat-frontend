@@ -1,7 +1,7 @@
-import { IconButtonProps } from "@mui/material"
+import { IconButtonProps } from '@mui/material';
 
 export type Props = IconButtonProps & {
-	fontSize: string
-	customColor?: string
-	bgColor?: string
-}
+  fontSize: string;
+  customColor?: string;
+  bgColor?: string;
+};

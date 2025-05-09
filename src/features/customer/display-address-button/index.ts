@@ -1,1 +1,1 @@
-export { DisplayAddressButton } from "./display-address-button"
+export { DisplayAddressButton } from './display-address-button';

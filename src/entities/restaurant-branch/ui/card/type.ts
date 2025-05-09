@@ -1,7 +1,7 @@
 export type Branch = {
-	id: string
-	address: string
-	restaurantId: string
-	createdAt: string
-	updatedAt: string
-}
+  id: string;
+  address: string;
+  restaurantId: string;
+  createdAt: string;
+  updatedAt: string;
+};

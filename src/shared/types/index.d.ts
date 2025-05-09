@@ -1,3 +1,3 @@
-import { YMap } from "ymaps3"
+import { YMap } from 'ymaps3';
 
-declare let map: YMap
+declare let map: YMap;

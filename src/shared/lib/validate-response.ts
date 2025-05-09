@@ -1,9 +1,10 @@
-import { type ZodType } from "zod"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type ZodType } from 'zod';
 
-type TypeOf<T extends ZodType<any, any, any>> = T["_output"]
+type TypeOf<T extends ZodType<any, any, any>> = T['_output'];
 
 export function validateResponse<T extends ZodType<any, any, any>>(
-	schema: T,
+  schema: T,
 ): (response: unknown, meta: unknown, arg: unknown) => TypeOf<T> {
-	return (response) => schema.parse(response)
+  return (response) => schema.parse(response);
 }

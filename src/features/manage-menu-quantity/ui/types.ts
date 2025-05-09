@@ -1,5 +1,5 @@
-import { MenuItem } from "@entities/cart/"
+import { MenuItem } from '@entities/cart/';
 
 export type Props = {
-	menuItem: MenuItem
-}
+  menuItem: MenuItem;
+};

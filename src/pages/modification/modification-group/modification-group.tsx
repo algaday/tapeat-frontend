@@ -1,5 +1,5 @@
-import { ModificationGroupDetailsWidget } from "@widgets/modification-group"
+import { ModificationGroupDetailsWidget } from '@widgets/modification-group';
 
 export function ModificationGroupPage() {
-	return <ModificationGroupDetailsWidget />
+  return <ModificationGroupDetailsWidget />;
 }

@@ -1,1 +1,1 @@
-export { MarinadeCalculator } from "./marinade-calculator"
+export { MarinadeCalculator } from './marinade-calculator';

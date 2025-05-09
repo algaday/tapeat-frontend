@@ -1,1 +1,1 @@
-export { RegisterOwnerForm } from "./ui/register-owner-form"
+export { RegisterOwnerForm } from './ui/register-owner-form';

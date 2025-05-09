@@ -1,1 +1,1 @@
-export { MapContext, MapProvider } from "./map-provider"
+export { MapContext, MapProvider } from './map-provider';

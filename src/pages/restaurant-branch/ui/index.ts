@@ -1,1 +1,1 @@
-export { RestaurantBranchPage } from "./restaurant-branch"
+export { RestaurantBranchPage } from './restaurant-branch';

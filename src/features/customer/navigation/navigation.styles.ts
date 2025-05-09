@@ -1,6 +1,6 @@
-import { IconButton } from "@mui/material"
-import styled from "styled-components"
+import { IconButton } from '@mui/material';
+import styled from 'styled-components';
 
 export const StyledIconButton = styled(IconButton)({
-	padding: 0,
-})
+  padding: 0,
+});
