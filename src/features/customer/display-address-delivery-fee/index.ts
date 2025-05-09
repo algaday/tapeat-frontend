@@ -1,1 +1,1 @@
-export { DisplayAddressDeliveryFee } from "./display-address-delivery-fee"
+export { DisplayAddressDeliveryFee } from "./ui/display-address-delivery-fee"

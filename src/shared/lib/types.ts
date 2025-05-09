@@ -2,7 +2,7 @@ import { z } from "zod"
 
 const modifications = z.object({
 	id: z.string(),
-	price: z.number(),
+	price: z.string(),
 })
 
 const menu = z.object({

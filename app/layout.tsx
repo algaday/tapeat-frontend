@@ -23,7 +23,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en" style={{ height: "100%" }}>
+		<html lang="en" style={{ height: "100%", scrollBehavior: "smooth" }}>
 			<Script src="https://api-maps.yandex.ru/v3/?apikey=d419fb5f-e802-442b-b6fb-050bd0b4a604&lang=ru_RU" />
 			<body className={inter.className} style={{ height: "100%" }}>
 				<ReduxProvider>

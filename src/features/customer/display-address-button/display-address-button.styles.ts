@@ -9,7 +9,7 @@ export const StyledButton = styled(Button)`
 		text-transform: none;
 		font-size: 16px;
 		font-weight: 550;
-		padding: 7px 0;
+		padding: 7px 10px;
 
 		&:hover {
 			background-color: #f4f3ef;

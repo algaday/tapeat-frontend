@@ -1,5 +1,5 @@
 import { MenuItemDetailsWidget } from "@widgets/customer-widgets"
 
-export function MenuItemOverview() {
+export default function MenuItemOverview() {
 	return <MenuItemDetailsWidget />
 }

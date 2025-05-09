@@ -12,12 +12,12 @@ export const modificationGroupResponse = z.object({
 export const modificationGroupDto = z.object({
 	modificationGroupName: z.string(),
 	isMultipleChoice: z.boolean(),
+	isMandatory: z.boolean(),
 
 	modifications: z.array(
 		z.object({
 			name: z.string(),
 			price: z.string(),
-			isMandatory: z.boolean(),
 		}),
 	),
 })
@@ -26,13 +26,13 @@ export const modificationGroupSchema = z.object({
 	id: z.string(),
 	isMultipleChoice: z.boolean(),
 	name: z.string(),
+	isMandatory: z.boolean(),
 	modifications: z.array(
 		z.object({
 			id: z.string(),
 			modificationGroupId: z.string(),
 			name: z.string(),
 			price: z.string(),
-			isMandatory: z.boolean(),
 			createdAt: z.string(),
 			updatedAt: z.string(),
 		}),

@@ -36,7 +36,6 @@ export function useCoordinatesControl() {
 			state.pickupAddress.coordinates = coordinates
 			return state
 		})
-		console.log(context.locationContent)
 	}
 
 	const updateDeliveryAddress = (address: string) => {
