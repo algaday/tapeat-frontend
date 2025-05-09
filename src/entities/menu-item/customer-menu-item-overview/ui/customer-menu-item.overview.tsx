@@ -17,7 +17,7 @@ export function CustomerMenuItemOverview(props: Props) {
 		<>
 			<StyledImageBox>
 				<Image
-					src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${props.image}`}
+					src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${props.image}`}
 					alt="pizza"
 					fill={true}
 					objectFit="cover"

@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react"
 
 import { baseQuery } from "./base-query"
 import {
+	CATEGORY_TAG,
 	MENU_ITEMS_TAG,
 	MODIFICATION_GROUP_TAG,
 	RESTAURANT_BRANCH_TAG,
@@ -14,6 +15,7 @@ export const baseApi = createApi({
 		RESTAURANT_BRANCH_TAG,
 		MENU_ITEMS_TAG,
 		MODIFICATION_GROUP_TAG,
+		CATEGORY_TAG,
 	],
 	reducerPath: "api",
 	baseQuery,

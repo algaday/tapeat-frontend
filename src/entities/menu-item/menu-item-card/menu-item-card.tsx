@@ -12,9 +12,15 @@ type Image = {
 	smallThumbnailPath: string
 }
 
+type Category = {
+	id: string
+	name: string
+	restaurantId: string
+}
+
 type Props = {
 	id: string
-	category: string
+	category: Category
 	description: string
 	nameOfDish: string
 	price: string
@@ -35,7 +41,7 @@ export function MenuItemCard(props: Props) {
 		<StyledCard>
 			<div className="card-image">
 				<Image
-					src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${mediumThumbnailPath}`}
+					src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${mediumThumbnailPath}`}
 					alt={nameOfDish}
 					width={150}
 					height={150}
@@ -45,7 +51,7 @@ export function MenuItemCard(props: Props) {
 			<CardContent className="card-content" sx={{ width: "100%" }}>
 				<Stack>
 					<Typography variant="h6">Названия: {nameOfDish}</Typography>
-					<Typography variant="caption">Категория: {category}</Typography>
+					<Typography variant="caption">Категория: {category.name}</Typography>
 					<Typography variant="body1" noWrap>
 						Описание: {description}
 					</Typography>

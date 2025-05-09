@@ -16,7 +16,7 @@ export function MenuItemCartPreview(props: Props) {
 			<Stack direction="row">
 				<Box padding={1}>
 					<StyledImage
-						src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket${image}`}
+						src={`https://tapeat-dev-bucket.object.pscloud.io/tapeat-dev-bucket/${image}`}
 						height="100"
 						width="100"
 						alt="smth"

@@ -3,6 +3,7 @@ import { z } from "zod"
 export type CartState = {
 	cart: MenuItem[] | []
 	menuItemsTotal: number
+	orderTotal: number
 }
 
 const modifications = z.object({

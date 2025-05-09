@@ -5,10 +5,14 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 
 import { RHFImageUpdate } from "@/shared/ui/rhf/rhf-image-update"
 import { RHFInputField } from "@/shared/ui/rhf/rhf-input-field"
-import { RHFSelect } from "@/shared/ui/rhf/rhf-select"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, InputAdornment, Stack, Typography } from "@mui/material"
 import { useParams, useRouter } from "next/navigation"
+
+import { useGetCategoriesQuery } from "@entities/category"
+import { useGetAllModificationGroupsQuery } from "@entities/modification-group"
+import { RHFMultipleSelect } from "@shared/ui/rhf/rhf-multiple-select"
+import { RHFSingleSelect } from "@shared/ui/rhf/rhf-single-select"
 
 import {
 	useDeleteMenuItemMutation,
@@ -32,6 +36,11 @@ export function MenuItemOverviewWidget() {
 		skip: !menuId,
 	})
 
+	const { data: categories, isSuccess: categoriesSuccess } =
+		useGetCategoriesQuery()
+
+	const { data: modifications } = useGetAllModificationGroupsQuery()
+
 	const [updateMenuItems] = useUpdateMenuItemMutation()
 
 	const [deleteMenuItem] = useDeleteMenuItemMutation()
@@ -46,6 +55,7 @@ export function MenuItemOverviewWidget() {
 		resolver: zodResolver(updateMenuItemSchema),
 		defaultValues: {
 			modificationGroupIds: [],
+			categoryId: "",
 		},
 	})
 
@@ -53,7 +63,9 @@ export function MenuItemOverviewWidget() {
 		if (!isLoading && !error && menuItem) {
 			methods.setValue("menuItemId", menuItem.id, { shouldValidate: true })
 			methods.setValue("name", menuItem.nameOfDish, { shouldValidate: true })
-			methods.setValue("category", menuItem.category, { shouldValidate: true })
+			methods.setValue("categoryId", menuItem.category.id, {
+				shouldValidate: true,
+			})
 			methods.setValue("description", menuItem.description, {
 				shouldValidate: true,
 			})
@@ -82,7 +94,7 @@ export function MenuItemOverviewWidget() {
 		return <h1>Loading...</h1>
 	}
 
-	if (isSuccess) {
+	if (isSuccess && categoriesSuccess && modifications) {
 		return (
 			<FormProvider {...methods}>
 				<StyledForm onSubmit={methods.handleSubmit(onSubmit)}>
@@ -95,11 +107,11 @@ export function MenuItemOverviewWidget() {
 						label="Название"
 						margin="normal"
 					/>
-					<RHFInputField
-						name="category"
+					<RHFSingleSelect
+						name="categoryId"
 						id="category"
-						label="Категория"
-						margin="normal"
+						labelText="Категория"
+						options={categories}
 					/>
 					<RHFInputField
 						name="description"
@@ -121,7 +133,11 @@ export function MenuItemOverviewWidget() {
 						}}
 					/>
 
-					<RHFSelect name="modificationGroupIds" text="Группа Модификации" />
+					<RHFMultipleSelect
+						options={modifications}
+						name="modificationGroupIds"
+						text="Группа Модификации"
+					/>
 					<RHFImageUpdate image={menuItem.image} name="imageId" />
 					<Stack direction="column" spacing={2} marginTop={2}>
 						<Button variant="contained" type="submit">

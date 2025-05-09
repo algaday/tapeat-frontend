@@ -1,13 +1,10 @@
 import { Box } from "@mui/material"
 import styled from "styled-components"
 
-export const StyledFixedBox = styled(Box)`
+export const StyledBox = styled(Box)`
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 	&.MuiBox-root {
 	}
-	width: 100%;
-	background-color: white;
-	position: sticky;
-	bottom: 0;
-	right: 0;
-	padding: 0 0 10px;
 `

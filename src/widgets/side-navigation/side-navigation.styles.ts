@@ -1,3 +1,8 @@
+import {
+	ExtendButtonBase,
+	ListItemButton,
+	ListItemButtonTypeMap,
+} from "@mui/material"
 import styled from "styled-components"
 
 export const Wrapper = styled.div`
@@ -9,5 +14,13 @@ export const Wrapper = styled.div`
 		gap: 10px;
 		align-items: center;
 		padding: 20px 0 10px 15px;
+	}
+`
+
+export const StyledListItemButton: ExtendButtonBase<ListItemButtonTypeMap> = styled(
+	ListItemButton,
+)`
+	&.MuiButtonBase-root {
+		padding: 10px 0px 10px 30px;
 	}
 `

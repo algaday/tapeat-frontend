@@ -9,7 +9,6 @@ import {
 
 type Props = {
 	id: string
-	modificationGroupId: string
 	name: string
 	price: string
 	createdAt: string
